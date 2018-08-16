@@ -13,10 +13,11 @@ _Webapp to managing the information of all team members_
 	1. Übersicht bisher angelegter Kontakte (readonly)
 		1. Auswählen eines Datensatzes und Weiterleitung zur Detailseite
   2. Detailseite zum Datensatz:
-    1. Anlegen (Entwickler: muss auf die Übersichtsseite -> bei keinem Eintrag, kann auch kein neuer angelegt werden)
+    1. Anlegen (Änderung: muss auf die Übersichtsseite -> bei keinem Eintrag, kann auch kein neuer angelegt werden)
     1. Bearbeiten
     1. Löschen
-  3. Optional: Validierung auf sinnvolle Mailadresse
+  3. Optional:
+		1. Validierung auf sinnvolle Mailadresse
   4. Abgrenzung:
     1. keine Login-Funktion im ersten Schritt nötig
 ### Technologie
@@ -25,4 +26,3 @@ _Webapp to managing the information of all team members_
 * ein Teil der Umsetzung soll Javabasiert erfolgen
 * setzen Sie bitte sinnvoll Komponenten/Frameworks ihrer Wahl ein
 * denken Sie an Logging und Fehlerbehandlung
-	
