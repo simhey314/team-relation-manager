@@ -14,8 +14,8 @@ _Webapp to managing the information of all team members_
 		1. Auswählen eines Datensatzes und Weiterleitung zur Detailseite
   2. Detailseite zum Datensatz:
     1. Anlegen (Änderung: muss auf die Übersichtsseite -> bei keinem Eintrag, kann auch kein neuer angelegt werden)
-    1. Bearbeiten
-    1. Löschen
+    2. Bearbeiten
+    3. Löschen
   3. Optional:
 		1. Validierung auf sinnvolle Mailadresse
   4. Abgrenzung:
