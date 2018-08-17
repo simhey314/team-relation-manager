@@ -16,8 +16,6 @@ public class SpringMvcDispatcherServerInitinalizer extends AbstractAnnotationCon
 
 	@Override
 	protected String[] getServletMappings() {
-		// TODO Auto-generated method stub
 		return new String[] { "/" };
 	}
-
 }
