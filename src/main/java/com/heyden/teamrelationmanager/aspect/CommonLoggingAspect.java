@@ -21,7 +21,7 @@ public class CommonLoggingAspect {
 	@Pointcut("execution(* com.heyden.teamrelationmanager.dao.*.*(..))")
 	private void daoPackage() {}
 	
-	@Pointcut("execution(* com.heyden.teamrelationmanager.*.*(..))")
+	@Pointcut("execution(* com.heyden.teamrelationmanager.service.*.*(..))")
 	private void servicePackage() {}
 	
 	@Pointcut("controllerPackage() || daoPackage() || servicePackage()")
@@ -30,17 +30,16 @@ public class CommonLoggingAspect {
 	
 	@Before("appFlowPackages()")
 	public void loggingAppFlowBefore(JoinPoint joinPoint) {
-		System.out.println("Logging Aspect in Action");
-		LOG.info("======>> Logging app flow aspect @Before on method: " + joinPoint.getSignature().toShortString());
+		LOG.info("@Before on method: {}", joinPoint.getSignature().toShortString());
 		for (Object arg : joinPoint.getArgs()) {
-			LOG.debug("=========>> Argument: " + arg.getClass().getName() + ": " + arg);
+			LOG.debug("@Before argument: Type [{}] Value [{}]", arg.getClass().getName(), arg);
 		} 
 	}
 	
 	@AfterReturning(pointcut="appFlowPackages()",
 					returning="result")
 	public void loggingAppFlowAfterReturning(JoinPoint joinPoint, Object result) {
-		LOG.debug("======>> Logging app flow aspect @AfterReturning on method: " + joinPoint.getSignature().toShortString());
-		LOG.debug("=========>> Result: " + result.getClass().getName() + ": " + result);
+		LOG.debug("@AfterReturning on method: {}", joinPoint.getSignature().toShortString());
+		LOG.debug("@AfterReturning result: Type [{}] Value [{}]", result.getClass().getName(), result);
 	}
 }
