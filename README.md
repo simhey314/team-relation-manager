@@ -40,6 +40,7 @@ _Webapp to managing the information of all team members_
 * REST (API) Schnittstelle implementieren
     * Frontend über Ajax und REST rendern
 * Template Engine Freemarker einsetzen
+* Unit test implementieren
 
 ### Eingesetzte Frameworks
 * Spring Framework MVC
