@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="warn">
     <Properties>
-        <Property name="basePath">./target/logs</Property>
+        <Property name="basePath">./logs</Property>
     </Properties>
  
     <Appenders>
@@ -15,7 +15,7 @@
         </RollingFile>
  
         <Console name="console" target="SYSTEM_OUT">
-            <PatternLayout   pattern="%highlight{%date{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%t] %class{1}:%line - %message%n}" />
+            <PatternLayout   pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%t] %class{1}:%line - %message%n" />
         </Console>
     </Appenders>
     <Loggers>
