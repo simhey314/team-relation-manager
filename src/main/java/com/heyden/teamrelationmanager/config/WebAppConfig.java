@@ -32,109 +32,87 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 @EnableTransactionManagement
 @PropertySource({ "classpath:mysql.properties" })
 @EnableAspectJAutoProxy
-public class WebAppConfig implements WebMvcConfigurer { 
+public class WebAppConfig implements WebMvcConfigurer {
 
 	private static final Logger LOG = LogManager.getLogger(WebAppConfig.class);
-	
+
 	@Autowired
 	private Environment environment;
-		
+
 	@Bean
 	public DataSource myDataSource() {
-		
+
 		// create connection pool
-		ComboPooledDataSource myDataSource = new ComboPooledDataSource();
+		ComboPooledDataSource dataSource = new ComboPooledDataSource();
 
 		// set the jdbc driver
 		try {
-			myDataSource.setDriverClass("com.mysql.jdbc.Driver");		
-		}
-		catch (PropertyVetoException exc) {
+			dataSource.setDriverClass(environment.getProperty("jdbc.driver"));
+		} catch (PropertyVetoException exc) {
 			throw new RuntimeException(exc);
 		}
-		
-		// for sanity's sake, let's log url and user ... just to make sure we are reading the data
+
+		// just to make sure we are reading the data
 		LOG.info("jdbc.url=" + environment.getProperty("jdbc.url"));
 		LOG.info("jdbc.user=" + environment.getProperty("jdbc.user"));
-		
-		// set database connection props
-		myDataSource.setJdbcUrl(environment.getProperty("jdbc.url"));
-		myDataSource.setUser(environment.getProperty("jdbc.user"));
-		myDataSource.setPassword(environment.getProperty("jdbc.password"));
-		
-		// set connection pool props
-		myDataSource.setInitialPoolSize(getIntProperty("connection.pool.initialPoolSize"));
-		myDataSource.setMinPoolSize(getIntProperty("connection.pool.minPoolSize"));
-		myDataSource.setMaxPoolSize(getIntProperty("connection.pool.maxPoolSize"));		
-		myDataSource.setMaxIdleTime(getIntProperty("connection.pool.maxIdleTime"));
 
-		return myDataSource;
+		// set database connection props
+		dataSource.setJdbcUrl(environment.getProperty("jdbc.url"));
+		dataSource.setUser(environment.getProperty("jdbc.user"));
+		dataSource.setPassword(environment.getProperty("jdbc.password"));
+
+		// set connection pool props
+		dataSource.setInitialPoolSize(getIntProperty("connection.pool.initialPoolSize"));
+		dataSource.setMinPoolSize(getIntProperty("connection.pool.minPoolSize"));
+		dataSource.setMaxPoolSize(getIntProperty("connection.pool.maxPoolSize"));
+		dataSource.setMaxIdleTime(getIntProperty("connection.pool.maxIdleTime"));
+
+		return dataSource;
 	}
-	
-	private Properties getHibernateProperties() {
+
+	private int getIntProperty(String propertyName) {
+		String propertyValue = environment.getProperty(propertyName);
+		int result = 0;
+		try {
+			result = Integer.parseInt(propertyValue);
+		} catch (NumberFormatException exception) {
+			LOG.error("Can't parse property int:", exception);
+		}
+		return result;
+	}
+
+	@Bean
+	public LocalSessionFactoryBean sessionFactory() {
+		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
 
 		// set hibernate properties
-		Properties props = new Properties();
+		Properties property = new Properties();
+		property.setProperty("hibernate.dialect", environment.getProperty("hibernate.dialect"));
+		property.setProperty("hibernate.show_sql", environment.getProperty("hibernate.show_sql"));
 
-		props.setProperty("hibernate.dialect", environment.getProperty("hibernate.dialect"));
-		props.setProperty("hibernate.show_sql", environment.getProperty("hibernate.show_sql"));
-		
-		return props;				
-	}
-	
-	
-	// need a helper method 
-	// read environment property and convert to int
-	
-	private int getIntProperty(String propName) {
-		
-		String propVal = environment.getProperty(propName);
-		
-		// now convert to int
-		int intPropVal = Integer.parseInt(propVal);
-		
-		return intPropVal;
-	}	
-	
-	
-	@Bean
-	public LocalSessionFactoryBean sessionFactory(){
-		
-		// create session factorys
-		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-		
-		// set the properties
 		sessionFactory.setDataSource(myDataSource());
 		sessionFactory.setPackagesToScan(environment.getProperty("hibernate.packagesToScan"));
-		sessionFactory.setHibernateProperties(getHibernateProperties());
-		
+		sessionFactory.setHibernateProperties(property);
+
 		return sessionFactory;
 	}
-	
+
 	@Bean
 	@Autowired
 	public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
-		
-		// setup transaction manager based on session factory
-		HibernateTransactionManager txManager = new HibernateTransactionManager();
-		txManager.setSessionFactory(sessionFactory);
+		HibernateTransactionManager transactionManager = new HibernateTransactionManager();
+		transactionManager.setSessionFactory(sessionFactory);
+		return transactionManager;
+	}
 
-		return txManager;
-	}	
-	
-	
-	
-	
 	@Bean
 	public ViewResolver viewResolver() {
-		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver("/WEB-INF/view/", ".jsp"); 
+		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver("/WEB-INF/view/", ".jsp");
 		return viewResolver;
 	}
-	
+
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 	}
-	
-	
 }
