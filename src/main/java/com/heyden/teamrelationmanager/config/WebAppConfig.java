@@ -2,15 +2,17 @@ package com.heyden.teamrelationmanager.config;
 
 import java.beans.PropertyVetoException;
 import java.util.Properties;
-import java.util.logging.Logger;
 
 import javax.sql.DataSource;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
@@ -29,9 +31,10 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 @ComponentScan("com.heyden.teamrelationmanager")
 @EnableTransactionManagement
 @PropertySource({ "classpath:mysql.properties" })
+@EnableAspectJAutoProxy
 public class WebAppConfig implements WebMvcConfigurer { 
 
-	private static final Logger logger = Logger.getLogger(WebAppConfig.class.getName());
+	private static final Logger LOG = LogManager.getLogger(WebAppConfig.class);
 	
 	@Autowired
 	private Environment environment;
@@ -51,8 +54,8 @@ public class WebAppConfig implements WebMvcConfigurer {
 		}
 		
 		// for sanity's sake, let's log url and user ... just to make sure we are reading the data
-		logger.info("jdbc.url=" + environment.getProperty("jdbc.url"));
-		logger.info("jdbc.user=" + environment.getProperty("jdbc.user"));
+		LOG.info("jdbc.url=" + environment.getProperty("jdbc.url"));
+		LOG.info("jdbc.user=" + environment.getProperty("jdbc.user"));
 		
 		// set database connection props
 		myDataSource.setJdbcUrl(environment.getProperty("jdbc.url"));

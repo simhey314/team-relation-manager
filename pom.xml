@@ -31,6 +31,8 @@
 		<servlet.jstl.version>1.2</servlet.jstl.version>
 		<junit.version>4.12</junit.version>
 		<mockito.core.version>2.21.0</mockito.core.version>
+		<log4j.version>2.11.1</log4j.version>
+		<aspectj.version>1.9.1</aspectj.version>
 
 	</properties>
 
@@ -40,7 +42,6 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring.web-mvc.version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
@@ -93,6 +94,23 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>${servlet.jstl.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${aspectj.version}</version>
 		</dependency>
 
 		<!-- Testing -->
