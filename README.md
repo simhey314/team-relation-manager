@@ -42,12 +42,13 @@ _Webapp to managing the information of all team members_
 * Hibernate ORM
 * AspectJ
 
-## Projekt Konfiguration
-1. MySQL Server: src/main/resources/mysql.properties musss entsprechend des SQL-Servers angepasst werden
+## Projekt Setup
+1. MySQL Schema anlegen: db-design/01-db-create-sql auf dem MySQL Server ausführen
+2. MySQL Server Verbindung: src/main/resources/mysql.properties musss entsprechend des SQL-Servers angepasst werden
     * jdbc.url
     * jdbc.user
     * jdbc.password
-2. Log4j2: src/main/resources/log4j2.xml musss ggf. _basePath_ angepasst werden
+3. Log4j2: src/main/resources/log4j2.xml musss ggf. _basePath_ angepasst werden
 
 ## Projekt ausführen
 ### Eclipse/ IDE
