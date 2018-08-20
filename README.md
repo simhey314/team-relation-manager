@@ -31,6 +31,10 @@ _Webapp to managing the information of all team members_
 ## Umsetzung
 ### Anpassung der Anforderung
 1. Anlegen von neuen Datensätzen muss auf die Übersichtsseite, da sonst bei keinem vorhanden Eintrag, dann auch kein neuer angelegt werden kann
+2. Beziehung Angestellter <-> Team hinzugefügt
+    * Team kann viele Angestellte besitzen
+    * Angestellter kann in einem Team sein
+3. Suche nach Angestellten Vorname und Nachname hinzugefügt
 
 ### Ausblick/ Weiterentwicklung
 * REST (API) Schnittstelle implementieren
