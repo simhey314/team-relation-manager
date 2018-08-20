@@ -24,7 +24,7 @@ public class Team {
 	@Column()
 	private String name;
 	
-	@OneToMany(mappedBy="employee", cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+	@OneToMany(mappedBy="team", cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 	private List<Employee> employees;
 	
 	public Team() {}

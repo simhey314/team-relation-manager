@@ -9,15 +9,19 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.validation.Validator;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -70,17 +74,6 @@ public class WebAppConfig implements WebMvcConfigurer {
 		return dataSource;
 	}
 
-	private int getIntProperty(String propertyName) {
-		String propertyValue = environment.getProperty(propertyName);
-		int result = 0;
-		try {
-			result = Integer.parseInt(propertyValue);
-		} catch (NumberFormatException exception) {
-			LOG.error("Can't parse property int:", exception);
-		}
-		return result;
-	}
-
 	@Bean
 	public LocalSessionFactoryBean sessionFactory() {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
@@ -111,8 +104,39 @@ public class WebAppConfig implements WebMvcConfigurer {
 		return viewResolver;
 	}
 
+	@Bean
+	public MessageSource validatorMessageSource() {
+		ReloadableResourceBundleMessageSource bean = new ReloadableResourceBundleMessageSource();
+		bean.setBasename("classpath:validator-messages");
+		bean.setDefaultEncoding("UTF-8");
+		return bean;
+	}
+
+	@Bean
+	public LocalValidatorFactoryBean validatorFactory() {
+		LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
+		bean.setValidationMessageSource(validatorMessageSource());
+		return bean;
+	}
+
+	@Override
+	public Validator getValidator() {
+		return validatorFactory();
+	}
+
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+	}
+
+	private int getIntProperty(String propertyName) {
+		String propertyValue = environment.getProperty(propertyName);
+		int result = 0;
+		try {
+			result = Integer.parseInt(propertyValue);
+		} catch (NumberFormatException exception) {
+			LOG.error("Can't parse property int:", exception);
+		}
+		return result;
 	}
 }

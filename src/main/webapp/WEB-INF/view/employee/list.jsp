@@ -19,7 +19,7 @@
 <body>
 	<div class="container bg-light">
 		<h1 class="bg-info text-center text-white mb-0 pb-4">Team Pflege</h1>
-		<h2 class="bg-info text-center text-white pb-4 mb-4">Übersicher aller Angestellten</h2>
+		<h2 class="bg-info text-center text-white pb-4 mb-4">Übersicht aller Angestellten</h2>
 		<h3 class="mb-2">Suche</h3>
 		<div class="row">
 			<div class="col-4">
@@ -102,7 +102,7 @@
 				</div>
 			</div>
 		</form>
-		<h3 class="mb-4">Team</h3>
+		<h2 class="bg-info text-center text-white pt-4 pb-4 mb-4">Team</h2>
 		<form>
 			<div class="form-row">
 				<div class="col-3 form-group">
