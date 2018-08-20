@@ -22,13 +22,23 @@ public class GenericDAOHibernateImpl  <T, PK extends Serializable> implements Ge
 	
 	public GenericDAOHibernateImpl() {}
 	
-	public void setCLazz(Class<T> type) {
+	public void setClazz(Class<T> type) {
 		this.type = type;
 	}
 	
 	@Override
 	public void save(T dataObject) {
 		getSession().saveOrUpdate(dataObject);
+	}
+	
+	@Override
+	public void update(T dataObject) {
+		save(dataObject);
+	}
+
+	@Override
+	public void create(T dataObject) {
+		save(dataObject);
 	}
 
 	@Override

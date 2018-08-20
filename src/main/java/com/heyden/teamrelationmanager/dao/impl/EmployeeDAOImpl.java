@@ -19,7 +19,7 @@ class EmployeeDAOImpl extends GenericDAOHibernateImpl<Employee, Integer> impleme
 	private SessionFactory sessionFactory;
 	
 	public EmployeeDAOImpl() {
-		setCLazz(Employee.class);
+		setClazz(Employee.class);
 	}
 	
 	@Override

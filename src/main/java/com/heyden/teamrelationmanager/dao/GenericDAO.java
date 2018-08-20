@@ -5,13 +5,17 @@ import java.util.List;
 
 public interface GenericDAO <T, PK extends Serializable> {
 
-	void save(T dataObject);
+	public void save(T dataObject);
+	
+	public void update(T dataObject);
+	
+	public void create(T dataObject);
  
-    T get(PK id);
+	public T get(PK id);
     
-    List<T> getAll();
+	public List<T> getAll();
 
-    void delete(T dataObject);
+	public void delete(T dataObject);
     
-    void deleteById(PK id);
+	public void deleteById(PK id);
 }

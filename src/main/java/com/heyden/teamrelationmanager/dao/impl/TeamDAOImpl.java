@@ -9,6 +9,6 @@ import com.heyden.teamrelationmanager.entity.Team;
 class TeamDAOImpl extends GenericDAOHibernateImpl<Team, Integer> implements TeamDAO {
 	
 	public TeamDAOImpl() {
-		setCLazz(Team.class);
+		setClazz(Team.class);
 	}
 }
