@@ -45,7 +45,7 @@ limitations under the License. --%>
 					<div class="form-group">
 						<div class="input-group">
 							<input type="text" name="searchValue" class="form-control"
-								placeholder="Vor- oder Nachnamen">
+								placeholder="Vor- oder Nachnamen" value="${searchValue}">
 							<div class="input-group-append">
 								<button class="btn btn-info" type="submit">&rarr;</button>
 							</div>
@@ -65,7 +65,12 @@ limitations under the License. --%>
 			<div class="col">
 				<c:choose>
 					<c:when test="${empty employees}">
-						<p>Es sind keine Mitarbeiter/in vorhanden.</p>
+						<p>
+							<c:choose>
+								<c:when test="${empty message}">Es sind keine Mitarbeiter/in vorhanden.</c:when>
+								<c:otherwise>${message}</c:otherwise>
+							</c:choose>
+						</p>
 					</c:when>
 					<c:otherwise>
 						<table class="table table-striped">
@@ -99,8 +104,9 @@ limitations under the License. --%>
 		</div>
 		<div class="row">
 			<div class="col">
-				<a href="${pageContext.request.contextPath}/team/list" class="btn btn-info">zur Teamübersicht</a>
-			</div>		
+				<a href="${pageContext.request.contextPath}/team/list"
+					class="btn btn-info">zur Teamübersicht</a>
+			</div>
 		</div>
 	</div>
 

@@ -44,18 +44,19 @@ limitations under the License. --%>
 			<c:url var="deleteLink" value="delete">
 				<c:param name="id" value="${employee.id}" />
 			</c:url>
+			<form:hidden path="id" />
 			<div class="form-row">
 				<div class="col-6 form-group">
-					<form:label path="firstname">Vorname (*)</form:label>
+					<form:label path="firstName">Vorname (*)</form:label>
 					<form:input type="text" class="form-control"
-						cssErrorClass="form-control is-invalid" path="firstname" required />
-					<form:errors cssClass="invalid-feedback" />
+						cssErrorClass="form-control is-invalid" path="firstName" />
+					<form:errors path="firstName" cssClass="invalid-feedback" />
 				</div>
 				<div class="col-6 form-group">
-					<form:label path="lastname">Nachname (*)</form:label>
+					<form:label path="lastName">Nachname (*)</form:label>
 					<form:input type="text" class="form-control"
-						cssErrorClass="form-control is-invalid" path="lastname" required />
-					<form:errors cssClass="invalid-feedback" />
+						cssErrorClass="form-control is-invalid" path="lastName" />
+					<form:errors path="lastName" cssClass="invalid-feedback" />
 				</div>
 			</div>
 			<div class="form-row">
@@ -63,14 +64,22 @@ limitations under the License. --%>
 					<form:label path="email">Email</form:label>
 					<form:input type="text" class="form-control"
 						cssErrorClass="form-control is-invalid" path="email" />
-					<form:errors cssClass="invalid-feedback" />
+					<form:errors path="email" cssClass="invalid-feedback" />
 				</div>
 				<div class="col-6 form-group">
-					<form:label path="team">Team</form:label>
-					<form:select path="team" class="form-control">
-						<form:option value="0" label="Team wählen" />
-						<form:options items="${teams}" itemLabel="name" itemValue="id" />
-					</form:select>
+					<c:choose>
+						<c:when test="${empty teams}">
+							<label>Team</label>
+							<div class="form-control">keine Teams vorhanden</div>
+						</c:when>
+						<c:otherwise>
+							<form:label path="team">Team</form:label>
+							<form:select path="team" class="form-control">
+								<form:options items="${teams}" itemLabel="name" itemValue="id" />
+								<!-- itemLabel="name" itemValue="id" -->
+							</form:select>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 			<div class="form-row pb-4">
@@ -78,9 +87,11 @@ limitations under the License. --%>
 					<small>(*) Pflichtfeld</small>
 				</div>
 				<div class="col-auto ml-auto">
-					<button type="submit" class="btn btn-info">Speichern</button>
-					<a class="btn btn-info" href="${deleteLink}"
-						onclick="if (!(confirm('Wollen Sie diesen Mitarbeiter löschen?'))) return false">Löschen</a>
+					<form:button type="submit" class="btn btn-info">Speichern</form:button>
+					<c:if test="${employee.id > 0 }">
+						<a class="btn btn-info" href="${deleteLink}"
+							onclick="if (!(confirm('Wollen Sie diesen Mitarbeiter löschen?'))) return false">Löschen</a>
+					</c:if>
 					<a href="list" class="btn btn-info">Abbrechen</a>
 				</div>
 			</div>
@@ -102,7 +113,7 @@ limitations under the License. --%>
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
 		integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 		crossorigin="anonymous"></script>
-	<script src="resources/js/custom.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 </body>
 
 </html>

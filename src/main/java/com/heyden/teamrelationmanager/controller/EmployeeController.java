@@ -17,16 +17,21 @@ package com.heyden.teamrelationmanager.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.heyden.teamrelationmanager.entity.Employee;
 import com.heyden.teamrelationmanager.service.EmployeeService;
+import com.heyden.teamrelationmanager.service.TeamService;
 
 @Controller
 @RequestMapping("/employee")
@@ -35,6 +40,9 @@ public class EmployeeController {
 	
 	@Autowired
 	private EmployeeService employeeService;
+	
+	@Autowired
+	private TeamService teamService;
 	
 	@GetMapping("/list")
 	public String getEmployeeList(Model model) {
@@ -50,6 +58,9 @@ public class EmployeeController {
 		
 		List<Employee> employeeList = employeeService.searchEmployee(searchValue);
 		model.addAttribute("employees", employeeList);
+		// TODO: externalize the message 
+		model.addAttribute("message", "Bei der Suche wurden keine Mitarbeiter/in gefunden!");
+		model.addAttribute("searchValue", searchValue);
 
 		return "employee/list";
 	}
@@ -58,29 +69,37 @@ public class EmployeeController {
 	public String createEmployee(Model model) {
 		
 		model.addAttribute("employee", new Employee());
+		model.addAttribute("teams", teamService.getTeams());
 		
 		return "employee/detail";
 	}
 
 	@GetMapping("/detail")
-	public String getSearchResult(@RequestParam("employeeId") int employeeId, Model model) {
+	public String getDetailEmployee(@RequestParam("employeeId") int employeeId, Model model) {
 		
 		model.addAttribute("employee", employeeService.getEmployee(employeeId));
+		model.addAttribute("teams", teamService.getTeams());
 
 		return "employee/detail";
 	}
 	
 	@PostMapping("/save")
-	public String saveTeam(Model model) {
+	public String saveEmployee(@Valid @ModelAttribute("employee") Employee employee, BindingResult bindingResult, Model model) {
 		
+		String view = "redirect:/employee/list";
+		if (bindingResult.hasErrors()) {
+			view = "employee/detail";
+			model.addAttribute("employee", employee);
+		} else {
+			employeeService.saveEmployee(employee);
+		}
 		
-		
-		return "redirect:/team/list";
+		return view;
 	}
 	
-	@PostMapping("/delete")
-	public String deleteTeam(@RequestParam("id") int id, Model model) {
+	@GetMapping("/delete")
+	public String deleteEmployee(@RequestParam("id") int id, Model model) {
 		employeeService.deleteEmployee(id);
-		return "redirect:/team/list";
+		return "redirect:/employee/list";
 	}
 }

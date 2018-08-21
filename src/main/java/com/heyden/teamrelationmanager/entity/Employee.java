@@ -18,6 +18,7 @@ package com.heyden.teamrelationmanager.entity;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,9 +26,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="employee")
@@ -40,19 +39,20 @@ public class Employee {
 	@Column
 	private int id;
 	
-	@NotBlank(message="string.required")
+	@NotBlank()
 	@Column(name="first_name")
 	private String firstName;
 
-	@NotBlank(message="string.required")
+	@NotBlank()
 	@Column(name="last_name")
 	private String lastName;
 	
-	@Pattern(regexp="^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,8}$", message="email.pattern")
+	@Pattern(regexp="^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,8}$")
 	@Column
 	private String email;
 
-	@ManyToOne(cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+	@ManyToOne(fetch=FetchType.EAGER,
+			   cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinColumn(name="team_id")
 	private Team team;
 
@@ -63,6 +63,14 @@ public class Employee {
 		this.firstName = firstName;
 		this.lastName = lasttName;
 		this.email = email;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getFirstName() {
