@@ -14,6 +14,8 @@ public interface GenericDAO <T, PK extends Serializable> {
 	public T get(PK id);
     
 	public List<T> getAll();
+	
+	public List<T> getAllOrderBy(String orderByColumnName);
 
 	public void delete(T dataObject);
     

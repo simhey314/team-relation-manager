@@ -14,28 +14,23 @@ import com.heyden.teamrelationmanager.entity.Employee;
 @Repository
 class EmployeeDAOImpl extends GenericDAOHibernateImpl<Employee, Integer> implements EmployeeDAO {
 
-	// injected via spring config
-	@Autowired
-	private SessionFactory sessionFactory;
-	
 	public EmployeeDAOImpl() {
 		setClazz(Employee.class);
 	}
 	
 	@Override
-	public List<Employee> searchEmployee(String searchName) {
-		Session session = sessionFactory.getCurrentSession();
+	public List<Employee> searchEmployee(String searchValue) {
+		Session session = getSession();
 		
-		Query<Employee> query = null;
-		
-		if (searchName != null && searchName.trim().length() > 0) {
-			String employeeName = searchName.trim().toLowerCase();
-			query = session.createQuery("FROM Employee WHERE LOWER(firstName) LIKE :EmployeeName OR LOWER(lastName) like :EmployeeName ORDER BY lastName", Employee.class);
+		List<Employee> employees = null;
+		if (searchValue != null && searchValue.trim().length() > 0) {
+			String employeeName = searchValue.trim().toLowerCase();
+			Query<Employee> query = session.createQuery("FROM Employee WHERE LOWER(firstName) LIKE :EmployeeName OR LOWER(lastName) like :EmployeeName", Employee.class);
 			query.setParameter("EmployeeName", "%" + employeeName + "%");
+			employees = query.getResultList();
 		} else {
-			query = session.createQuery("FROM Employee ORDER BY lastName", Employee.class);
+			employees = getAll();
 		}
-		List<Employee> Employees = query.getResultList();
-		return Employees;
+		return employees;
 	}
 }

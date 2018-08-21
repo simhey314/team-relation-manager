@@ -3,6 +3,7 @@ package com.heyden.teamrelationmanager.dao.impl;
 import java.io.Serializable;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ import com.heyden.teamrelationmanager.dao.GenericDAO;
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class GenericDAOHibernateImpl  <T, PK extends Serializable> implements GenericDAO<T, PK> {
 
+	private static final String ORDER_BY_PATTERN =" ORDER BY %s";
+	private static final String QUERY_ALL_PATTERN ="FROM %s%s";
+	
 	@Autowired
 	private SessionFactory sessionFactory;
 	private Class<T> type;
@@ -53,16 +57,27 @@ public class GenericDAOHibernateImpl  <T, PK extends Serializable> implements Ge
 
 	@Override
 	public List<T> getAll() {
-		return getSession().createQuery( "from " + type.getName() ).list();
+		return getAllOrderBy(null);
 	}
 
+	@Override
+	public List<T> getAllOrderBy(String columnName) {
+		String orderBy = "";
+		if (StringUtils.isNotBlank(columnName)) {
+			orderBy = String.format(ORDER_BY_PATTERN, columnName);
+		}
+		
+		String hqlQuery = String.format(QUERY_ALL_PATTERN, type.getName(), orderBy);
+		return getSession().createQuery(hqlQuery).list();
+	}
+	
 	@Override
 	public void deleteById(PK id) {
 		T entity = get(id);
 		delete(entity);
 	}
 
-	private Session getSession() {
+	protected Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
 }
