@@ -40,25 +40,34 @@ limitations under the License. --%>
 		<h2 class="bg-info text-center text-white pb-4 mb-4">Team
 			Detailansicht</h2>
 		<form:form action="save" modelAttribute="team" method="POST">
+			<c:url var="deleteLink" value="delete">
+				<c:param name="id" value="${team.id}" />
+			</c:url>
+
+			<form:hidden path="id" />
 			<div class="form-row">
 				<div class="col-6 form-group">
-					<label for="firstname">Name (*)</label> <input type="text"
-						class="form-control" id="firstname" required>
+					<form:label path="name">Name (*)</form:label>
+					<form:input path="name" type="text" cssClass="form-control"
+						cssErrorClass="form-control is-invalid" />
+					<form:errors path="name" cssClass="invalid-feedback" />
 				</div>
 				<div class="col-6">
-					<c:choose>
-						<c:when test="${empty team.employees}">
-							<p>keine Mitglieder vorhanden</p>
-						</c:when>
-						<c:otherwise>
-							<ul class="list-group-flush">
-								<c:forEach var="employeeEntity" items="${team.employees}">
-									<li class="list-group-item">{$employeeEntity.firstName}
-										{$employeeEntity.lastName}</li>
-								</c:forEach>
-							</ul>
-						</c:otherwise>
-					</c:choose>
+					<c:if test="${team.id > 0}">
+						<c:choose>
+							<c:when test="${empty team.employees}">
+								<p>keine Mitglieder vorhanden</p>
+							</c:when>
+							<c:otherwise>
+								<ul class="list-group-flush">
+									<c:forEach var="employeeEntity" items="${team.employees}">
+										<li class="list-group-item">{$employeeEntity.firstName}
+											{$employeeEntity.lastName}</li>
+									</c:forEach>
+								</ul>
+							</c:otherwise>
+						</c:choose>
+					</c:if>
 				</div>
 			</div>
 			<div class="form-row pb-4">
@@ -66,9 +75,12 @@ limitations under the License. --%>
 					<small>(*) Pflichtfeld</small>
 				</div>
 				<div class="col-auto ml-auto">
-					<button type="submit" class="btn btn-info">Speichern</button>
-					<button class="btn btn-info">Löschen</button>
-					<button class="btn btn-info">Abbrechen</button>
+					<form:button type="submit" class="btn btn-info">Speichern</form:button>
+					<c:if test="${employee.id > 0 }">
+						<a class="btn btn-info" href="${deleteLink}"
+							onclick="if (!(confirm('Wollen Sie diesen Mitarbeiter löschen?'))) return false">Löschen</a>
+					</c:if>
+					<a href="list" class="btn btn-info">Abbrechen</a>
 				</div>
 			</div>
 		</form:form>
@@ -89,7 +101,7 @@ limitations under the License. --%>
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
 		integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 		crossorigin="anonymous"></script>
-	<script src="resources/js/custom.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
 </body>
 
 </html>

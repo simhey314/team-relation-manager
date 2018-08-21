@@ -61,7 +61,7 @@ limitations under the License. --%>
 							<tbody>
 								<c:forEach var="teamEntity" items="${teams}">
 									<c:url var="detailLink" value="detail">
-										<c:param name="teamId" value="${teamEntity.id}" />
+										<c:param name="id" value="${teamEntity.id}" />
 									</c:url>
 									<tr>
 										<td>${teamEntity.name}</td>

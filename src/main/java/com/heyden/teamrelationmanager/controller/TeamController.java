@@ -15,10 +15,14 @@ limitations under the License.
 
 package com.heyden.teamrelationmanager.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,18 +38,27 @@ public class TeamController {
 	private TeamService teamService;
 
 	@PostMapping("/save")
-	public String saveTeam(Model model) {
-		return "redirect:/team/list";
+	public String saveTeam(@Valid @ModelAttribute("team") Team team, BindingResult bindingResult, Model model) {
+		String view = "redirect:/team/list"; 
+		
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("team", team);
+			view = "team/detail";
+		} else {
+			teamService.saveTeam(team);
+		}
+		
+		return view;
 	}
 	
 	@PostMapping("/delete")
-	public String deleteTeam(@RequestParam("teamId") int teamId, Model model) {
+	public String deleteTeam(@RequestParam("id") int teamId, Model model) {
 		teamService.deleteTeam(teamId);
 		return "redirect:/team/list";
 	}
 	
 	@GetMapping("/detail")
-	public String detailTeam(@RequestParam("teamId") int teamId, Model model) {
+	public String detailTeam(@RequestParam("id") int teamId, Model model) {
 		model.addAttribute("team", teamService.getTeam(teamId));
 		return "team/detail";
 	}
