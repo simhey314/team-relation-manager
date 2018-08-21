@@ -40,7 +40,7 @@ _Webapp to managing the information of all team members_
 3. Validierung hinzugefügt:
     * Angestellter
         * Vorname, Nachname (min 1 Zeichen, no blanks)
-        * Email (gültiges Format/ regex)
+        * Email (gültiges Format/ regex html5)
     * Team
         * Name (min 1 Zeichen, no blanks)
 
@@ -49,6 +49,13 @@ _Webapp to managing the information of all team members_
     * Frontend über Ajax und REST rendern
 * Template Engine Freemarker einsetzen
 * Unit test implementieren
+* Aufteilung des HTML Renderings (Wiederverwendung/ Anpassungen global einmalig durchführen)
+    * head
+    * body
+        * header
+        * content
+        * java script include
+* i18n Unterstützung für alle Literale im HTML/ view         
 
 ### Eingesetzte Frameworks
 * Spring Framework MVC
@@ -69,3 +76,7 @@ Projekt auf einem Java Applicationsserver (Bsp. Tomcat) Server ausführen (Run a
 
 ### WAR File
 Mit Maven das Projekt bauen (Maven install) und das WAR file dann auf dem Java Applikations Server (Bsp. Tomcat) ablegen
+
+## Releases
+* v0.9
+    * erste lauffähige Version der Webanwenund
