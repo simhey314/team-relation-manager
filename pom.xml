@@ -33,6 +33,7 @@
 		<mockito.core.version>2.21.0</mockito.core.version>
 		<log4j.version>2.11.1</log4j.version>
 		<aspectj.version>1.9.1</aspectj.version>
+		<apache.common.lang.version>3.8</apache.common.lang.version>
 
 	</properties>
 
@@ -112,6 +113,13 @@
 			<artifactId>aspectjweaver</artifactId>
 			<version>${aspectj.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${apache.common.lang.version}</version>
+		</dependency>
+
 
 		<!-- Testing -->
 		<dependency>
