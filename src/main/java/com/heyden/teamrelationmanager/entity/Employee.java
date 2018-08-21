@@ -17,6 +17,8 @@ import javax.validation.constraints.Size;
 @Table(name="employee")
 public class Employee {
 
+	public static final String COLUMN_LAST_NAME = "lastName";
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column
@@ -30,7 +32,7 @@ public class Employee {
 	@NotNull(message="string.required")
 	@Size(min=1, message="string.required")
 	@Column(name="last_name")
-	private String lasttName;
+	private String lastName;
 	
 	@Pattern(regexp="^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,8}$", message="email.pattern")
 	@Column
@@ -45,7 +47,7 @@ public class Employee {
 	public Employee(String firstName, String lasttName, String email) {
 		super();
 		this.firstName = firstName;
-		this.lasttName = lasttName;
+		this.lastName = lasttName;
 		this.email = email;
 	}
 
@@ -57,12 +59,12 @@ public class Employee {
 		this.firstName = firstName;
 	}
 
-	public String getLasttName() {
-		return lasttName;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setLasttName(String lasttName) {
-		this.lasttName = lasttName;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getEmail() {
@@ -80,10 +82,10 @@ public class Employee {
 	public void setTeam(Team team) {
 		this.team = team;
 	}
-
+	
 	@Override
 	public String toString() {
 		return String.format("Employee [id=%s, firstName=%s, lasttName=%s, email=%s, team=%s]", id, firstName,
-				lasttName, email, team != null ? team.getName() : null);
+				lastName, email, team != null ? team.getName() : null);
 	}
 }

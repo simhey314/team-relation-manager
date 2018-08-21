@@ -16,6 +16,8 @@ import javax.persistence.Table;
 @Table(name="team")
 public class Team {
 	
+	public static final String COLUMN_NAME = "name";
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column
