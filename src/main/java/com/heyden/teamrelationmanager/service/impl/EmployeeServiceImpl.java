@@ -47,4 +47,10 @@ class EmployeeServiceImpl implements EmployeeService {
 		return employeeDAO.searchEmployee(searchName);
 	}
 
+	@Override
+	@Transactional
+	public List<Employee> getEmployees(String orderByColumn) {
+		return employeeDAO.getAllOrderBy(orderByColumn);
+	}
+
 }

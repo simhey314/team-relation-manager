@@ -39,4 +39,10 @@ class TeamServiceImpl implements TeamService {
 	public void deleteTeam(int id) {
 		teamDAO.deleteById(id);		
 	}
+
+	@Override
+	@Transactional
+	public List<Team> getTeams(String orderByColumn) {
+		return teamDAO.getAllOrderBy(orderByColumn);
+	}
 }

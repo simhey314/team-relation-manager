@@ -7,6 +7,8 @@ import com.heyden.teamrelationmanager.entity.Team;
 public interface TeamService {
 
 	public List<Team> getTeams();
+	
+	public List<Team> getTeams(String orderByColumn);
 
 	public void saveTeam(Team Team);
 
