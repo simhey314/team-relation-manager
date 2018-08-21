@@ -5,7 +5,7 @@ import org.aspectj.lang.annotation.Pointcut;
 public class PointcutExpression {
 	
 	@Pointcut("execution(* com.heyden.teamrelationmanager.controller.*.*(..))")
-	private void controllerPackage() {}
+	public void controllerPackage() {}
 	
 	@Pointcut("execution(* com.heyden.teamrelationmanager.dao.*.*(..))")
 	private void daoPackage() {}

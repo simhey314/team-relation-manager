@@ -31,7 +31,7 @@ public class CommonLoggingAspect {
 		LOG.debug("@AfterReturning result: Type [{}] Value [{}]", result.getClass().getName(), result);
 	}
 	
-	@AfterThrowing(pointcut="com.heyden.teamrelationmanager.aspect.PointcutExpression.controllerDaoService()",
+	@AfterThrowing(pointcut="com.heyden.teamrelationmanager.aspect.PointcutExpression.controllerPackage()",
 			       throwing="exception")
 	public void loggingExceptions(JoinPoint joinPoint, Exception exception) {
 		LOG.error("Exception is thrown on method: " + joinPoint.getSignature().toShortString() + "\n", exception);
