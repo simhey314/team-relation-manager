@@ -1,3 +1,16 @@
+<%-- Copyright 2018 Simon Heyden
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
@@ -43,9 +56,9 @@
 				</form:form>
 			</div>
 		</div>
-		<div class="form-row">
-			<div class="col form-group">
-				<a href="create" class="btn btn-info">Neue/n Mitarbeiter/in</a>
+		<div class="row">
+			<div class="col">
+				<a href="create" class="btn btn-info mb-4">Neue/r Mitarbeiter/in</a>
 			</div>
 		</div>
 		<div class="row">
@@ -84,24 +97,11 @@
 				</c:choose>
 			</div>
 		</div>
-		<h2 class="bg-info text-center text-white pt-4 pb-4 mb-4">Team</h2>
-		<form:form action="/team/detail" method="POST">
-			<div class="form-row">
-				<div class="col-3 form-group">
-					<a href="/team/create" class="btn btn-info">Neues Team</a>
-				</div>
-				<div class="col-3 form-group">
-<%-- 				<form:select path="selectedTeam" cssClass="form-control">
-					<form:option value="">Bitte auswählen</form:option>
-					<form:options items="${teams}" />
-				</form:select>
- --%>					<small>Team auswählen zum Bearbeiten</small>
-				</div>
-				<div class="col-3 form-group">
-					<button type="submit" class="btn btn-info">Bearbeiten</button>
-				</div>
-			</div>
-		</form:form>
+		<div class="row">
+			<div class="col">
+				<a href="${pageContext.request.contextPath}/team/list" class="btn btn-info">zur Teamübersicht</a>
+			</div>		
+		</div>
 	</div>
 
 
