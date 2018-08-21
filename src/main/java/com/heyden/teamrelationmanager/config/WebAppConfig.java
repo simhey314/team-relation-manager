@@ -122,21 +122,17 @@ public class WebAppConfig implements WebMvcConfigurer {
 	@Bean
 	public MessageSource validatorMessageSource() {
 		ReloadableResourceBundleMessageSource bean = new ReloadableResourceBundleMessageSource();
-		bean.setBasename("classpath:validator-messages");
+		bean.setBasename("classpath:messages");
 		bean.setDefaultEncoding("UTF-8");
-		return bean;
-	}
-
-	@Bean
-	public LocalValidatorFactoryBean validatorFactory() {
-		LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
-		bean.setValidationMessageSource(validatorMessageSource());
 		return bean;
 	}
 
 	@Override
 	public Validator getValidator() {
-		return validatorFactory();
+		LocalValidatorFactoryBean validatorBean = new LocalValidatorFactoryBean();
+		validatorBean.setValidationMessageSource(validatorMessageSource());
+
+		return validatorBean;
 	}
 
 	@Override
