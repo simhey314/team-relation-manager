@@ -38,13 +38,13 @@ limitations under the License. --%>
 	<div class="container bg-light">
 		<h1 class="bg-info text-center text-white mb-0 pb-4">Team Pflege</h1>
 		<h2 class="bg-info text-center text-white pb-4 mb-4">Teams</h2>
-		<div class="form-row">
-			<div class="col form-group">
-				<a href="create" class="btn btn-info">Neues Team</a>
+		<div class="row">
+			<div class="col">
+				<a href="create" class="btn btn-info mb-4">Neues Team</a>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col">
+			<div class="col table-responsive-lg">
 				<c:choose>
 					<c:when test="${empty teams}">
 						<p>Es sind keine Teams vorhanden.</p>
@@ -82,7 +82,7 @@ limitations under the License. --%>
 				</c:choose>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row pb-2">
 			<div class="col">
 				<a href="${pageContext.request.contextPath}/employee/list" class="btn btn-info">zur Mitarbeiter/in
 					Übersicht</a>

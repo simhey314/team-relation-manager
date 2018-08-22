@@ -40,7 +40,7 @@ limitations under the License. --%>
 		<h2 class="bg-info text-center text-white pb-4 mb-4">Mitarbeiter/in</h2>
 		<h3 class="mb-2">Suche</h3>
 		<div class="row">
-			<div class="col-4">
+			<div class="col-md-4">
 				<form:form action="search" method="POST">
 					<div class="form-group">
 						<div class="input-group">
@@ -62,7 +62,7 @@ limitations under the License. --%>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col">
+			<div class="col table-responsive-lg">
 				<c:choose>
 					<c:when test="${empty employees}">
 						<p>
@@ -102,7 +102,7 @@ limitations under the License. --%>
 				</c:choose>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row pb-2">
 			<div class="col">
 				<a href="${pageContext.request.contextPath}/team/list"
 					class="btn btn-info">zur Teamübersicht</a>
