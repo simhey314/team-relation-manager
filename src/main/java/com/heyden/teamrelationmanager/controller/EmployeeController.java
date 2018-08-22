@@ -102,4 +102,14 @@ public class EmployeeController {
 		employeeService.deleteEmployee(id);
 		return "redirect:/employee/list";
 	}
+	
+	@GetMapping("/leave-team")
+	public String leaveTeame(@RequestParam("id") int id, Model model) {
+		Employee employee = employeeService.getEmployee(id);
+		if (employee != null && employee.getTeam() != null) {
+			employee.setTeam(null);
+			employeeService.saveEmployee(employee);
+		}
+		return "redirect:/employee/list";
+	}
 }

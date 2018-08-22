@@ -44,6 +44,9 @@ limitations under the License. --%>
 			<c:url var="deleteLink" value="delete">
 				<c:param name="id" value="${employee.id}" />
 			</c:url>
+			<c:url var="leaveTeamLink" value="leave-team">
+				<c:param name="id" value="${employee.id}" />
+			</c:url>
 			<form:hidden path="id" />
 			<div class="form-row">
 				<div class="col-6 form-group">
@@ -87,6 +90,9 @@ limitations under the License. --%>
 				</div>
 				<div class="col-auto ml-auto">
 					<form:button type="submit" class="btn btn-info">Speichern</form:button>
+					<c:if test="${employee.id > 0 && employee.team != null && employee.team.id > 0}">
+						<a class="btn btn-info" href="${leaveTeamLink}">Aus Team austreten</a>
+					</c:if>
 					<c:if test="${employee.id > 0 }">
 						<a class="btn btn-info" href="${deleteLink}"
 							onclick="if (!(confirm('Wollen Sie diesen Mitarbeiter löschen?'))) return false">Löschen</a>
