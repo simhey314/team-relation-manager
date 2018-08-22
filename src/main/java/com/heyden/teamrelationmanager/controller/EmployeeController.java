@@ -88,6 +88,7 @@ public class EmployeeController {
 	public String saveEmployee(@Valid @ModelAttribute("employee") Employee employee, BindingResult bindingResult, Model model) {
 		
 		String view = "redirect:/employee/list";
+		// @TODO @UGLY @Workaround how to ignore the validation error on field with path team.id and a null value?
 		if (bindingResult.hasErrors() && !hasErrorToIgnore(bindingResult)) {
 			view = "employee/detail";
 			model.addAttribute("employee", employee);
@@ -99,7 +100,7 @@ public class EmployeeController {
 		return view;
 	}
 
-	// @TODO how to ignore the validation error on field with path team.id and a null value?
+	
 	private boolean hasErrorToIgnore(BindingResult bindingResult) {
 		boolean result = bindingResult.hasErrors() && bindingResult.getErrorCount() == 1 && bindingResult.getFieldError(PATH_TEAM_ID) != null;
 

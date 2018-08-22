@@ -24,8 +24,8 @@ class TeamServiceImpl implements TeamService {
 
 	@Override
 	@Transactional
-	public void saveTeam(Team Team) {
-		teamDAO.save(Team);
+	public void saveTeam(Team team) {
+		teamDAO.save(team);
 	}
 
 	@Override
