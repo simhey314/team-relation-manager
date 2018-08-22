@@ -78,6 +78,7 @@ limitations under the License. --%>
 						<c:otherwise>
 							<form:label path="team.id">Team</form:label>
 							<form:select path="team.id" class="form-control">
+								<form:option value="${null}" >kein Team</form:option>
 								<form:options items="${teams}" itemLabel="name" itemValue="id" />
 							</form:select>
 						</c:otherwise>
@@ -90,9 +91,6 @@ limitations under the License. --%>
 				</div>
 				<div class="col-auto ml-auto">
 					<form:button type="submit" class="btn btn-info">Speichern</form:button>
-					<c:if test="${employee.id > 0 && employee.team != null && employee.team.id > 0}">
-						<a class="btn btn-info" href="${leaveTeamLink}">Aus Team austreten</a>
-					</c:if>
 					<c:if test="${employee.id > 0 }">
 						<a class="btn btn-info" href="${deleteLink}"
 							onclick="if (!(confirm('Wollen Sie diesen Mitarbeiter löschen?'))) return false">Löschen</a>

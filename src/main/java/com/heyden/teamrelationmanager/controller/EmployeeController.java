@@ -37,6 +37,8 @@ import com.heyden.teamrelationmanager.service.TeamService;
 @RequestMapping("/employee")
 public class EmployeeController {
 
+	private static final String PATH_TEAM_ID = "team.id";
+
 	@Autowired
 	private EmployeeService employeeService;
 	
@@ -86,7 +88,7 @@ public class EmployeeController {
 	public String saveEmployee(@Valid @ModelAttribute("employee") Employee employee, BindingResult bindingResult, Model model) {
 		
 		String view = "redirect:/employee/list";
-		if (bindingResult.hasErrors()) {
+		if (bindingResult.hasErrors() && !hasErrorToIgnore(bindingResult)) {
 			view = "employee/detail";
 			model.addAttribute("employee", employee);
 			model.addAttribute("teams", teamService.getTeams());
@@ -96,7 +98,14 @@ public class EmployeeController {
 		
 		return view;
 	}
-	
+
+	// @TODO how to ignore the validation error on field with path team.id and a null value?
+	private boolean hasErrorToIgnore(BindingResult bindingResult) {
+		boolean result = bindingResult.hasErrors() && bindingResult.getErrorCount() == 1 && bindingResult.getFieldError(PATH_TEAM_ID) != null;
+
+		return result;
+	}
+
 	@GetMapping("/delete")
 	public String deleteEmployee(@RequestParam("id") int id, Model model) {
 		employeeService.deleteEmployee(id);

@@ -46,4 +46,13 @@ class EmployeeDAOImpl extends GenericDAOHibernateImpl<Employee, Integer> impleme
 		}
 		return employees;
 	}
+	
+	@Override
+	public void save(Employee dataObject) {
+		// @TODO: avoid that the select form null value do a blank team injection to employee
+		if (dataObject.getTeam() != null && dataObject.getTeam().getId() <= 0) {
+			dataObject.setTeam(null);
+		}
+		super.save(dataObject);
+	}
 }
