@@ -73,10 +73,9 @@ limitations under the License. --%>
 							<div class="form-control">keine Teams vorhanden</div>
 						</c:when>
 						<c:otherwise>
-							<form:label path="team">Team</form:label>
-							<form:select path="team" class="form-control">
+							<form:label path="team.id">Team</form:label>
+							<form:select path="team.id" class="form-control">
 								<form:options items="${teams}" itemLabel="name" itemValue="id" />
-								<!-- itemLabel="name" itemValue="id" -->
 							</form:select>
 						</c:otherwise>
 					</c:choose>

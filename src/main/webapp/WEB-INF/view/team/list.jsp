@@ -70,7 +70,7 @@ limitations under the License. --%>
 													keine Mitglieder vorhanden
 												</c:when>
 												<c:otherwise>
-													${teamEntity.employees.size}
+												 	${teamEntity.employees.size()}	
 												</c:otherwise>
 											</c:choose></td>
 										<td><a href="${detailLink}" class="btn btn-info">Bearbeiten</a></td>

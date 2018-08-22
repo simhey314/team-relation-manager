@@ -40,8 +40,8 @@ public class Team {
 	@Column
 	private int id;
 	
-	@Column(unique=true)
-	@NotBlank(message="string.required")
+	@Column
+	@NotBlank
 	private String name;
 	
 	@OneToMany(fetch=FetchType.EAGER,

@@ -36,8 +36,7 @@ import com.heyden.teamrelationmanager.service.TeamService;
 @Controller
 @RequestMapping("/employee")
 public class EmployeeController {
-	
-	
+
 	@Autowired
 	private EmployeeService employeeService;
 	
@@ -67,8 +66,8 @@ public class EmployeeController {
 	
 	@GetMapping("/create")
 	public String createEmployee(Model model) {
-		
-		model.addAttribute("employee", new Employee());
+		Employee newEmloyee = new Employee();
+		model.addAttribute("employee", newEmloyee);
 		model.addAttribute("teams", teamService.getTeams());
 		
 		return "employee/detail";
@@ -90,6 +89,7 @@ public class EmployeeController {
 		if (bindingResult.hasErrors()) {
 			view = "employee/detail";
 			model.addAttribute("employee", employee);
+			model.addAttribute("teams", teamService.getTeams());
 		} else {
 			employeeService.saveEmployee(employee);
 		}

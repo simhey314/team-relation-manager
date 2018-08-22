@@ -39,11 +39,11 @@ public class Employee {
 	@Column
 	private int id;
 	
-	@NotBlank()
+	@NotBlank
 	@Column(name="first_name")
 	private String firstName;
 
-	@NotBlank()
+	@NotBlank
 	@Column(name="last_name")
 	private String lastName;
 	

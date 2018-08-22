@@ -51,7 +51,7 @@ public class TeamController {
 		return view;
 	}
 	
-	@PostMapping("/delete")
+	@GetMapping("/delete")
 	public String deleteTeam(@RequestParam("id") int teamId, Model model) {
 		teamService.deleteTeam(teamId);
 		return "redirect:/team/list";

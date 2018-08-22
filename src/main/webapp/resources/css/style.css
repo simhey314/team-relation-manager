@@ -1,1 +1,6 @@
 /* custom styles */
+
+.team-detail[data-css="team-member-list"]{
+	overflow-y: scroll;
+	max-height: 250px; 
+}
