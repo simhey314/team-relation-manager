@@ -56,12 +56,12 @@ _Webapp to managing the information of all team members_
         * content
         * java script include
 * i18n Unterstützung für alle Literale im HTML/ view
-* Team Zuweisung vom Mitarbeiter entfernen
-    * Entweder DB design nicht geeignet
+* Team Zuweisung vom Mitarbeiter entfernen => Implementierung verbessern
     * Spring mvc jsp form:select ist nicht geeignet (selbst mit null option $(null}) => validation error beim Pfad team.id
+    * Workarounds entfernen
 * Team Name unique machen
 	 * Validierung komplex/ spezieller Behandlung im Controller notwendig
-	 * Mögliche Umsetung:
+	 * Mögliche Umsetzung:
 	     * Eigener Validator der eine DB Abfrage auf vorhandene Namen ausführt
 	     * @Column(unique= true)
 
