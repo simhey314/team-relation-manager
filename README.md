@@ -55,7 +55,15 @@ _Webapp to managing the information of all team members_
         * header
         * content
         * java script include
-* i18n Unterstützung für alle Literale im HTML/ view         
+* i18n Unterstützung für alle Literale im HTML/ view
+* Team Zuweisung vom Mitarbeiter entfernen
+    * Entweder DB design nicht geeignet
+    * Spring mvc jsp form:select ist nicht geeignet (selbst mit null option $(null}) => validation error beim Pfad team.id
+* Team Name unique machen
+	 * Validierung komplex/ spezieller Behandlung im Controller notwendig
+	 * Mögliche Umsetung:
+	     * Eigener Validator der eine DB Abfrage auf vorhandene Namen ausführt
+	     * @Column(unique= true)
 
 ### Eingesetzte Frameworks
 * Spring Framework MVC
@@ -77,6 +85,9 @@ Projekt auf einem Java Applicationsserver (Bsp. Tomcat) Server ausführen (Run a
 ### WAR File
 Mit Maven das Projekt bauen (Maven install) und das WAR file dann auf dem Java Applikations Server (Bsp. Tomcat) ablegen
 
+## Bekannte Fehler
+* Valdierungs-Fehlermeldungen werden nicht aus der messages.properties resource verwendet => standard Meldungen werden ausgegeben
+
 ## Releases
 * v0.9
-    * erste lauffähige Version der Webanwenund
+    * erste lauffähige Version der Webanwenung
