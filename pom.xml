@@ -6,7 +6,7 @@
 
 	<groupId>com.heyden</groupId>
 	<artifactId>team-realtion-manager</artifactId>
-	<version>0.9.</version>
+	<version>1.0.0</version>
 	<packaging>war</packaging>
 
 	<name>team-realtion-manager</name>
