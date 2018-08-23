@@ -34,16 +34,21 @@ import com.heyden.teamrelationmanager.service.TeamService;
 @RequestMapping("/team")
 public class TeamController {
 	
+	private static final String VIEW_TEAM_LIST = "team/list";
+	private static final String VIEW_TEAM_DETAIL = "team/detail";
+	private static final String REDIRECT_TEAM_LIST = "redirect:/" + VIEW_TEAM_LIST;
+
+	
 	@Autowired
 	private TeamService teamService;
 
 	@PostMapping("/save")
 	public String saveTeam(@Valid @ModelAttribute("team") Team team, BindingResult bindingResult, Model model) {
-		String view = "redirect:/team/list"; 
+		String view = REDIRECT_TEAM_LIST; 
 		
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("team", team);
-			view = "team/detail";
+			view = VIEW_TEAM_DETAIL;
 		} else {
 			teamService.saveTeam(team);
 		}
@@ -54,13 +59,17 @@ public class TeamController {
 	@GetMapping("/delete")
 	public String deleteTeam(@RequestParam("id") int teamId, Model model) {
 		teamService.deleteTeam(teamId);
-		return "redirect:/team/list";
+		return REDIRECT_TEAM_LIST;
 	}
 	
 	@GetMapping("/detail")
 	public String detailTeam(@RequestParam("id") int teamId, Model model) {
-		model.addAttribute("team", teamService.getTeam(teamId));
-		return "team/detail";
+		Team team = teamService.getTeam(teamId);
+		if (team == null) {
+			return REDIRECT_TEAM_LIST;
+		}
+		model.addAttribute("team", team);
+		return VIEW_TEAM_DETAIL;
 	}
 	
 	@GetMapping("/list")
@@ -68,7 +77,7 @@ public class TeamController {
 		
 		model.addAttribute("teams", teamService.getTeams(Team.COLUMN_NAME));
 		
-		return "team/list";
+		return VIEW_TEAM_LIST;
 	}
 	
 	@GetMapping("/create")
@@ -76,6 +85,6 @@ public class TeamController {
 		
 		model.addAttribute("team", new Team());
 		
-		return "team/detail";
+		return VIEW_TEAM_DETAIL;
 	}
 }

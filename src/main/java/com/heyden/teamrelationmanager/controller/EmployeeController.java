@@ -37,6 +37,10 @@ import com.heyden.teamrelationmanager.service.TeamService;
 @RequestMapping("/employee")
 public class EmployeeController {
 
+	private static final String VIEW_EMPLOYEE_LIST = "employee/list";
+	private static final String VIEW_EMPLOYEE_DETAIL = "employee/detail";
+	private static final String REDIRECT_EMPLOYEE_LIST = "redirect:/" + VIEW_EMPLOYEE_LIST;
+
 	private static final String PATH_TEAM_ID = "team.id";
 
 	@Autowired
@@ -51,7 +55,7 @@ public class EmployeeController {
 		List<Employee> employeeList = employeeService.getEmployees(Employee.COLUMN_LAST_NAME);
 		model.addAttribute("employees", employeeList);
 		
-		return "employee/list";
+		return VIEW_EMPLOYEE_LIST;
 	}
 	
 	@PostMapping("/search")
@@ -63,7 +67,7 @@ public class EmployeeController {
 		model.addAttribute("message", "Bei der Suche wurden keine Mitarbeiter/in gefunden!");
 		model.addAttribute("searchValue", searchValue);
 
-		return "employee/list";
+		return VIEW_EMPLOYEE_LIST;
 	}
 	
 	@GetMapping("/create")
@@ -72,25 +76,28 @@ public class EmployeeController {
 		model.addAttribute("employee", newEmloyee);
 		model.addAttribute("teams", teamService.getTeams());
 		
-		return "employee/detail";
+		return VIEW_EMPLOYEE_DETAIL;
 	}
 
 	@GetMapping("/detail")
-	public String getDetailEmployee(@RequestParam("employeeId") int employeeId, Model model) {
-		
-		model.addAttribute("employee", employeeService.getEmployee(employeeId));
+	public String getDetailEmployee(@RequestParam("id") int employeeId, Model model) {
+		Employee employee = employeeService.getEmployee(employeeId);
+		if (employee == null) {
+			return REDIRECT_EMPLOYEE_LIST;
+		}
+		model.addAttribute("employee", employee);
 		model.addAttribute("teams", teamService.getTeams());
 
-		return "employee/detail";
+		return VIEW_EMPLOYEE_DETAIL;
 	}
 	
 	@PostMapping("/save")
 	public String saveEmployee(@Valid @ModelAttribute("employee") Employee employee, BindingResult bindingResult, Model model) {
 		
-		String view = "redirect:/employee/list";
-		// @TODO @UGLY @Workaround how to ignore the validation error on field with path team.id and a null value?
+		String view = REDIRECT_EMPLOYEE_LIST;
+		// @TODO @UGLY @Workaround how to ignore the validation error on select field with path team.id and a null value?
 		if (bindingResult.hasErrors() && !hasErrorToIgnore(bindingResult)) {
-			view = "employee/detail";
+			view = VIEW_EMPLOYEE_DETAIL;
 			model.addAttribute("employee", employee);
 			model.addAttribute("teams", teamService.getTeams());
 		} else {
@@ -103,7 +110,7 @@ public class EmployeeController {
 	@GetMapping("/delete")
 	public String deleteEmployee(@RequestParam("id") int id, Model model) {
 		employeeService.deleteEmployee(id);
-		return "redirect:/employee/list";
+		return REDIRECT_EMPLOYEE_LIST;
 	}
 	
 	private boolean hasErrorToIgnore(BindingResult bindingResult) {

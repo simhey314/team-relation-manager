@@ -89,6 +89,9 @@ public class GenericDAOHibernateImpl  <T, PK extends Serializable> implements Ge
 	@Override
 	public void deleteById(PK id) {
 		T entity = get(id);
+		if (entity == null) {
+			return;
+		}
 		delete(entity);
 	}
 
