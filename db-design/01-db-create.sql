@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `team-relation-manager`.`employee` (
   `email` VARCHAR(128) NULL DEFAULT NULL,
   `team_id` INT(11) NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_employee_team_idx` (`team_id` ASC) VISIBLE,
+  INDEX `fk_employee_team_idx` (`team_id` ASC),
   CONSTRAINT `fk_employee_team`
     FOREIGN KEY (`team_id`)
     REFERENCES `team-relation-manager`.`team` (`id`)
