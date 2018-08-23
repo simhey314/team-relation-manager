@@ -26,7 +26,7 @@ public class PointcutExpression {
 	private void daoPackage() {}
 	
 	@Pointcut("execution(* com.heyden.teamrelationmanager.service.*.*(..))")
-	private void servicePackage() {}
+	public void servicePackage() {}
 	
 	@Pointcut("controllerPackage() || daoPackage() || servicePackage()")
 	public void controllerDaoService() {}
