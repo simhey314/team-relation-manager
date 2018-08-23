@@ -37,12 +37,13 @@ _Webapp to managing the information of all team members_
     * Team kann viele Angestellte besitzen
     * Angestellter kann in einem Team sein
 2. Suche nach Angestellten Vorname und Nachname hinzugefügt
-3. Validierung hinzugefügt:
+3. Validierung hinzugefügt (Serverseitig):
     * Angestellter
         * Vorname, Nachname (min 1 Zeichen, no blanks)
         * Email (gültiges Format/ regex html5)
     * Team
         * Name (min 1 Zeichen, no blanks)
+4. Clientseitige (HTNL5) Validierung nicht hinzugefügt, um die Serverseitige einfacher zu zeigen.
 
 ### Ausblick/ Weiterentwicklung
 * REST (API) Schnittstelle implementieren
