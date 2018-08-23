@@ -100,16 +100,16 @@ public class EmployeeController {
 		return view;
 	}
 
+	@GetMapping("/delete")
+	public String deleteEmployee(@RequestParam("id") int id, Model model) {
+		employeeService.deleteEmployee(id);
+		return "redirect:/employee/list";
+	}
 	
 	private boolean hasErrorToIgnore(BindingResult bindingResult) {
 		boolean result = bindingResult.hasErrors() && bindingResult.getErrorCount() == 1 && bindingResult.getFieldError(PATH_TEAM_ID) != null;
 
 		return result;
 	}
-
-	@GetMapping("/delete")
-	public String deleteEmployee(@RequestParam("id") int id, Model model) {
-		employeeService.deleteEmployee(id);
-		return "redirect:/employee/list";
-	}
+	
 }

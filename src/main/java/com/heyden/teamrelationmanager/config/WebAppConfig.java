@@ -15,10 +15,6 @@ limitations under the License.
 
 package com.heyden.teamrelationmanager.config;
 
-import java.util.Locale;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -39,8 +35,6 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableAspectJAutoProxy
 public class WebAppConfig implements WebMvcConfigurer {
 	
-	private static final Logger LOG = LogManager.getLogger(WebAppConfig.class);
-
 	@Bean
 	public ViewResolver viewResolver() {
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver("/WEB-INF/view/", ".jsp");
@@ -52,8 +46,6 @@ public class WebAppConfig implements WebMvcConfigurer {
 		ReloadableResourceBundleMessageSource bean = new ReloadableResourceBundleMessageSource();
 		bean.setBasename("classpath:messages");
 		bean.setDefaultEncoding("UTF-8");
-		String result = bean.getMessage("Pattern.employee.email", null, Locale.GERMANY);
-		LOG.debug("===========================>>>>> Pattern.employee.email: " + result);
 		return bean;
 	}
 
@@ -61,8 +53,6 @@ public class WebAppConfig implements WebMvcConfigurer {
 	public Validator getValidator() {
 		LocalValidatorFactoryBean validatorBean = new LocalValidatorFactoryBean();
 		validatorBean.setValidationMessageSource(validatorMessageSource());
-		LOG.debug("===========================>>>>> getValidator(): ");
-		
 		return validatorBean;
 	}
 
@@ -70,5 +60,4 @@ public class WebAppConfig implements WebMvcConfigurer {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 	}
-
 }
