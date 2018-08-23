@@ -93,5 +93,8 @@ Mit Maven das Projekt bauen (Maven install) und das WAR file dann auf dem Java A
 * Valdierungs-Fehlermeldungen werden nicht aus der messages.properties resource verwendet => standard Meldungen werden ausgegeben
 
 ## Releases
+* v1.0.0
+    * Release Version
+		* voll funktionierende Anwendung
 * v0.9
     * erste lauffähige Version der Webanwenung
