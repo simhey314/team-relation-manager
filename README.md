@@ -94,6 +94,9 @@ Mit Maven das Projekt bauen (Maven install) und das WAR file dann auf dem Java A
 
 ## Bekannte Fehler
 * Valdierungs-Fehlermeldungen werden nicht aus der messages.properties resource verwendet => standard Meldungen werden ausgegeben
+* Email Validierung: das aktuelle Regex Pattern sorgt für eine Pflichteingabe
+    * Pattern anpassen: ^([a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}){0,1}$ oder
+    * Email Annotation + Validator implementieren mit dem jetzigen Pattern bei vorhandener Eingabe
 
 ## Releases
 * v1.0.0
