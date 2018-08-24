@@ -10,13 +10,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.heyden.teamrelationmanager.ApplicationConstants;
 
-@ControllerAdvice
+@ControllerAdvice("com.heyden.teamrelationmanager.controller")
 public class ControllerExceptionHandler {
 	
 	private static final Logger LOG = LogManager.getLogger(ControllerExceptionHandler.class);
 
 	@ExceptionHandler({MethodArgumentTypeMismatchException.class, MissingServletRequestParameterException.class})
-	public ModelAndView controllerExcpetionHandling(Exception exception) {
+	public ModelAndView controllerExcpetionHandler(Exception exception) {
 		ModelAndView result = new ModelAndView();
 		result.setViewName(ApplicationConstants.VIEW_ERROR_DETAIL);
 		LOG.error("Controller exception catched, show view: " + ApplicationConstants.VIEW_ERROR_DETAIL, exception);
