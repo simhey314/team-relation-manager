@@ -61,10 +61,12 @@ _Webapp to managing the information of all team members_
     * Spring mvc jsp form:select ist nicht geeignet (selbst mit null option $(null}) => validation error beim Pfad team.id
     * Workarounds entfernen
 * Team Name unique machen
-	 * Validierung komplex/ spezieller Behandlung im Controller notwendig
+	 * Validierung komplexer/ spezieller Behandlung im Controller notwendig
 	 * Mögliche Umsetzung:
 	     * Eigener Validator der eine DB Abfrage auf vorhandene Namen ausführt
 	     * @Column(unique= true)
+* Security
+     * XSS: bei Ausgabe von Benutzereingaben diese escapen (HTML)
 
 ### Eingesetzte Frameworks
 * Spring Framework MVC
