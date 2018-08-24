@@ -66,7 +66,7 @@ _Webapp to managing the information of all team members_
 	     * Eigener Validator der eine DB Abfrage auf vorhandene Namen ausführt
 	     * @Column(unique= true)
 * Security
-     * XSS: bei Ausgabe von Benutzereingaben diese escapen (HTML)
+     * XSS: bei Ausgabe von Benutzereingaben diese escapen (HTML) => http://owasp.github.io/owasp-java-encoder/
 
 ### Eingesetzte Frameworks
 * Spring Framework MVC
