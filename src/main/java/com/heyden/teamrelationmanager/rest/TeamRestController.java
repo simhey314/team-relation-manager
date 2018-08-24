@@ -42,20 +42,20 @@ public class TeamRestController {
 	}
 
 	@PostMapping("/teams")
-	public EntitySuccesResponse addTeam(@RequestBody Team Team) {
+	public EntitySuccesResponse addTeam(@RequestBody Team team) {
 		// force a save of new item, instead of an unwanted update
-		Team.setId(0);
-		teamService.saveTeam(Team);
+		team.setId(0);
+		teamService.saveTeam(team);
 		
-		return new EntitySuccesResponse(Team, "Adding the team successfully", HttpStatus.OK.value(), System.currentTimeMillis());
+		return new EntitySuccesResponse(team, "Adding the team successfully", HttpStatus.OK.value(), System.currentTimeMillis());
 	}
 	
 	@PutMapping("/teams")
-	public EntitySuccesResponse updateTeam(@RequestBody Team Team) {
+	public EntitySuccesResponse updateTeam(@RequestBody Team team) {
 		
-		teamService.saveTeam(Team);
+		teamService.saveTeam(team);
 		
-		return new EntitySuccesResponse(Team, "Update the team successfully", HttpStatus.OK.value(), System.currentTimeMillis());
+		return new EntitySuccesResponse(team, "Update the team successfully", HttpStatus.OK.value(), System.currentTimeMillis());
 	}
 	
 	@DeleteMapping("/teams/{id}")
