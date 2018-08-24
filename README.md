@@ -92,7 +92,7 @@ Projekt auf einem Java Applicationsserver (Bsp. Tomcat) Server ausführen (Run a
 ### WAR File
 Mit Maven das Projekt bauen (Maven install) und das WAR file dann auf dem Java Applikations Server (Bsp. Tomcat) ablegen
 
-## Bekannte Fehler
+## Bugs
 * Valdierungs-Fehlermeldungen werden nicht aus der messages.properties resource verwendet => standard Meldungen werden ausgegeben
 * Email Validierung: das aktuelle Regex Pattern sorgt für eine Pflichteingabe
     * Pattern anpassen: ^([a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}){0,1}$ oder
