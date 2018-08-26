@@ -10,13 +10,12 @@ import javax.validation.Payload;
 
 import com.heyden.teamrelationmanager.validation.EmailConstraintValidator;
 
-
 @Constraint(validatedBy=EmailConstraintValidator.class)
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface EmailAddress {
 	
-	public String message() default "Invalid email address";
+	public String message() default "{emailadress.value.violation}";
 	
 	public String pattern() default "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,8}$";
 	
