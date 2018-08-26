@@ -83,7 +83,7 @@ public class GenericDAOHibernateImpl  <T, PK extends Serializable> implements Ge
 		}
 		
 		String hqlQuery = String.format(QUERY_ALL_PATTERN, type.getName(), orderBy);
-		return getSession().createQuery(hqlQuery).list();
+		return getSession().createQuery(hqlQuery, type).list();
 	}
 	
 	@Override
