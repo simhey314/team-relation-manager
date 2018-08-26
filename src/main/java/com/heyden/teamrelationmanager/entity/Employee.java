@@ -26,7 +26,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
+
+import com.heyden.teamrelationmanager.validation.annotation.EmailAddress;
 
 @Entity
 @Table(name="employee")
@@ -47,7 +48,7 @@ public class Employee {
 	@Column(name="last_name")
 	private String lastName;
 	
-	@Pattern(regexp="^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,8}$")
+	@EmailAddress
 	@Column
 	private String email;
 
