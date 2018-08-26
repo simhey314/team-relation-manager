@@ -24,7 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.heyden.teamrelationmanager.ApplicationConstants;
 
-@ControllerAdvice
+@ControllerAdvice("com.heyden.teamrelationmanager.controller")
 public class ControllerExceptionHandler {
 	
 	private static final Logger LOG = LogManager.getLogger(ControllerExceptionHandler.class);
