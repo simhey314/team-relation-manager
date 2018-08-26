@@ -19,4 +19,6 @@ import com.heyden.teamrelationmanager.entity.Team;
 
 public interface TeamDAO extends GenericDAO<Team, Integer> {
 
+	boolean existsByName(String name);
+
 }

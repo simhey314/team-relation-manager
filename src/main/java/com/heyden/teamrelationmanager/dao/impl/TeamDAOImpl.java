@@ -15,6 +15,8 @@ limitations under the License.
 
 package com.heyden.teamrelationmanager.dao.impl;
 
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import com.heyden.teamrelationmanager.dao.TeamDAO;
@@ -37,5 +39,17 @@ class TeamDAOImpl extends GenericDAOHibernateImpl<Team, Integer> implements Team
 		}
 
 		super.delete(dataObject);
+	}
+
+	@Override
+	public boolean existsByName(String name) {
+		boolean result = false;
+		if (StringUtils.isNotBlank(name)) {
+			Query<Integer> query = getSession().createQuery("SELECT count(*) FROM Team WHERE name = :Name", Integer.class);
+			query.setParameter("Name", name);
+			Integer countName = query.getSingleResult();
+			result = countName != null && countName.intValue() == 1;
+		}
+		return result;
 	}
 }

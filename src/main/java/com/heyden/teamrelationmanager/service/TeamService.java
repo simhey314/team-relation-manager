@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.heyden.teamrelationmanager.entity.Team;
 
-public interface TeamService {
+public interface TeamService extends FieldUniqueness {
 
 	public List<Team> getTeams();
 	
