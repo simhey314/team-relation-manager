@@ -99,7 +99,7 @@ Mit Maven das Projekt bauen (Maven install) und das WAR file dann auf dem Java A
 * v1.0.1
     * Fehlerbehebung:
         * Email Validierung: das aktuelle Regex Pattern sorgt für eine Pflichteingabe
-	* Valdierungs-Fehlermeldungen werden nicht aus der messages.properties resource verwendet => standard Meldungen werden ausgegeben
+        * Valdierungs-Fehlermeldungen werden nicht aus der messages.properties resource verwendet => standard Meldungen werden ausgegeben
     * Feature:
         * String Eingaben werden getrimmt
 * v1.0.0
