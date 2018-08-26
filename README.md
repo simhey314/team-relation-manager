@@ -93,10 +93,7 @@ Projekt auf einem Java Applicationsserver (Bsp. Tomcat) Server ausführen (Run a
 Mit Maven das Projekt bauen (Maven install) und das WAR file dann auf dem Java Applikations Server (Bsp. Tomcat) ablegen
 
 ## Bugs
-* 
-* 
-    * Pattern anpassen: ^([a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}){0,1}$ oder
-    * Email Annotation + Validator implementieren mit dem jetzigen Pattern bei vorhandener Eingabe
+* keine bekannten
 
 ## Releases
 * v1.0.1
