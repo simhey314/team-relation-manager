@@ -75,7 +75,7 @@ limitations under the License. --%>
 						<c:otherwise>
 							<form:label path="team.id">Team</form:label>
 							<form:select path="team.id" class="form-control">
-								<form:option value="${null}" >kein Team</form:option>
+								<form:option value="${0}" >kein Team</form:option>
 								<form:options items="${teams}" itemLabel="name" itemValue="id" />
 							</form:select>
 						</c:otherwise>

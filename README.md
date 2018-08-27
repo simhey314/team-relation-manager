@@ -93,14 +93,17 @@ Projekt auf einem Java Applicationsserver (Bsp. Tomcat) Server ausführen (Run a
 Mit Maven das Projekt bauen (Maven install) und das WAR file dann auf dem Java Applikations Server (Bsp. Tomcat) ablegen
 
 ## Bugs
-* Valdierungs-Fehlermeldungen werden nicht aus der messages.properties resource verwendet => standard Meldungen werden ausgegeben
-* Email Validierung: das aktuelle Regex Pattern sorgt für eine Pflichteingabe
-    * Pattern anpassen: ^([a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,8}){0,1}$ oder
-    * Email Annotation + Validator implementieren mit dem jetzigen Pattern bei vorhandener Eingabe
+* keine bekannten
 
 ## Releases
+* v1.0.1
+    * Fehlerbehebung:
+        * Email Validierung: das aktuelle Regex Pattern sorgt für eine Pflichteingabe
+        * Valdierungs-Fehlermeldungen werden nicht aus der messages.properties resource verwendet => standard Meldungen werden ausgegeben
+    * Feature:
+        * String Eingaben werden getrimmt
 * v1.0.0
     * Release Version
-		* voll funktionierende Anwendung
+        * voll funktionierende Anwendung
 * v0.9
     * erste lauffähige Version der Webanwenung

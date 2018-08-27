@@ -26,7 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.heyden.teamrelationmanager.ApplicationConstants;
 
 @Component
-public class ControllerExceptionReswolver implements HandlerExceptionResolver, Ordered {
+public class ControllerExceptionResolver implements HandlerExceptionResolver, Ordered {
 
 	@Override
 	public int getOrder() {

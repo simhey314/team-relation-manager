@@ -41,8 +41,6 @@ public class EmployeeController {
 	private static final String VIEW_EMPLOYEE_DETAIL = "employee/detail";
 	private static final String REDIRECT_EMPLOYEE_LIST = "redirect:/" + VIEW_EMPLOYEE_LIST;
 
-	private static final String PATH_TEAM_ID = "team.id";
-
 	@Autowired
 	private EmployeeService employeeService;
 	
@@ -95,8 +93,7 @@ public class EmployeeController {
 	public String saveEmployee(@Valid @ModelAttribute("employee") Employee employee, BindingResult bindingResult, Model model) {
 		
 		String view = REDIRECT_EMPLOYEE_LIST;
-		// @TODO @UGLY @Workaround how to ignore the validation error on select field with path team.id and a null value?
-		if (bindingResult.hasErrors() && !hasErrorToIgnore(bindingResult)) {
+		if (bindingResult.hasErrors()) {
 			view = VIEW_EMPLOYEE_DETAIL;
 			model.addAttribute("employee", employee);
 			model.addAttribute("teams", teamService.getTeams());
@@ -112,11 +109,4 @@ public class EmployeeController {
 		employeeService.deleteEmployee(id);
 		return REDIRECT_EMPLOYEE_LIST;
 	}
-	
-	private boolean hasErrorToIgnore(BindingResult bindingResult) {
-		boolean result = bindingResult.hasErrors() && bindingResult.getErrorCount() == 1 && bindingResult.getFieldError(PATH_TEAM_ID) != null;
-
-		return result;
-	}
-	
 }
