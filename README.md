@@ -6,7 +6,7 @@ _Webapp to managing the information of all team members_
 2. Datenbankmodell:
     1. Mandatory:
         1. Attribute: Vorname, Nachname, Mailadresse
-        2. Optional: weitere sinnvolle Attribute/EntitÃ¤ten definieren und ein kleines Datenbankmodell modellieren
+        2. Optional: weitere sinnvolle Attribute/Entitäten definieren und ein kleines Datenbankmodell modellieren
 
 ### Dazu ist eine Webapplikation erstellen
 1. Einstiegsseite:
@@ -106,4 +106,4 @@ Mit Maven das Projekt bauen (Maven install) und das WAR file dann auf dem Java A
     * Release Version
         * voll funktionierende Anwendung
 * v0.9
-    * erste lauffähige Version der Webanwenung
+    * erste lauffähige Version der Webanwendung
