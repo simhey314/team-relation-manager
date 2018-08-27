@@ -1,17 +1,15 @@
-/** Copyright 2018 Simon Heyden
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License. 
-**/
+/**
+ * Copyright 2018 Simon Heyden
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ **/
 
 package com.heyden.teamrelationmanager.entity;
 
@@ -30,28 +28,29 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name="team")
+@Table(name = "team")
 public class Team {
-	
+
 	public static final String COLUMN_NAME = "name";
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private int id;
-	
+
 	@Column
 	@NotBlank
 	private String name;
-	
-	@OneToMany(fetch=FetchType.EAGER,
-			   mappedBy="team",
-			   cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-	private List<Employee> employees;
-	
-	public Team() {}
 
-	public Team(String name) {
+	@OneToMany(fetch = FetchType.EAGER,
+		mappedBy = "team",
+		cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	private List<Employee> employees;
+
+	public Team() {
+	}
+
+	public Team(final String name) {
 		super();
 		this.name = name;
 	}
@@ -60,7 +59,7 @@ public class Team {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(final int id) {
 		this.id = id;
 	}
 
@@ -68,7 +67,7 @@ public class Team {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -76,19 +75,19 @@ public class Team {
 		return employees;
 	}
 
-	public void setEmployees(List<Employee> employees) {
+	public void setEmployees(final List<Employee> employees) {
 		this.employees = employees;
 	}
-	
-	public void addEmployee(Employee newTeammember) {
+
+	public void addEmployee(final Employee newTeammember) {
 		if (newTeammember == null) {
 			return;
 		}
-		
+
 		if (employees == null) {
 			employees = new ArrayList<>();
 		}
-		
+
 		employees.add(newTeammember);
 		newTeammember.setTeam(this);
 	}
@@ -98,12 +97,12 @@ public class Team {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + id;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + (name == null ? 0 : name.hashCode());
 		return result;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(final Object obj) {
 		if (this == obj) {
 			return true;
 		}

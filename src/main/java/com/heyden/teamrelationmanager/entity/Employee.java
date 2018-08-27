@@ -1,17 +1,15 @@
-/** Copyright 2018 Simon Heyden
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License. 
-**/
+/**
+ * Copyright 2018 Simon Heyden
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ **/
 
 package com.heyden.teamrelationmanager.entity;
 
@@ -30,39 +28,40 @@ import javax.validation.constraints.NotBlank;
 import com.heyden.teamrelationmanager.validation.annotation.EmailAddress;
 
 @Entity
-@Table(name="employee")
+@Table(name = "employee")
 public class Employee {
 
 	public static final String COLUMN_LAST_NAME = "lastName";
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column
 	private int id;
-	
+
 	@NotBlank
-	@Column(name="first_name")
+	@Column(name = "first_name")
 	private String firstName;
 
 	@NotBlank
-	@Column(name="last_name")
+	@Column(name = "last_name")
 	private String lastName;
-	
+
 	@EmailAddress
 	@Column
 	private String email;
 
-	@ManyToOne(fetch=FetchType.EAGER,
-			   cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-	@JoinColumn(name="team_id")
+	@ManyToOne(fetch = FetchType.EAGER,
+		cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH })
+	@JoinColumn(name = "team_id")
 	private Team team;
 
-	public Employee() {}
-	
-	public Employee(String firstName, String lasttName, String email) {
+	public Employee() {
+	}
+
+	public Employee(final String firstName, final String lasttName, final String email) {
 		super();
 		this.firstName = firstName;
-		this.lastName = lasttName;
+		lastName = lasttName;
 		this.email = email;
 	}
 
@@ -70,7 +69,7 @@ public class Employee {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(final int id) {
 		this.id = id;
 	}
 
@@ -78,7 +77,7 @@ public class Employee {
 		return firstName;
 	}
 
-	public void setFirstName(String firstName) {
+	public void setFirstName(final String firstName) {
 		this.firstName = firstName;
 	}
 
@@ -86,7 +85,7 @@ public class Employee {
 		return lastName;
 	}
 
-	public void setLastName(String lastName) {
+	public void setLastName(final String lastName) {
 		this.lastName = lastName;
 	}
 
@@ -94,7 +93,7 @@ public class Employee {
 		return email;
 	}
 
-	public void setEmail(String email) {
+	public void setEmail(final String email) {
 		this.email = email;
 	}
 
@@ -102,13 +101,13 @@ public class Employee {
 		return team;
 	}
 
-	public void setTeam(Team team) {
+	public void setTeam(final Team team) {
 		this.team = team;
 	}
-	
+
 	@Override
 	public String toString() {
 		return String.format("Employee [id=%s, firstName=%s, lasttName=%s, email=%s, team=%s]", id, firstName,
-				lastName, email, team != null ? team.getName() : null);
+			lastName, email, team != null ? team.getName() : null);
 	}
 }
