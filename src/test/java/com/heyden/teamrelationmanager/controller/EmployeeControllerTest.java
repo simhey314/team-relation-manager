@@ -19,18 +19,21 @@ package com.heyden.teamrelationmanager.controller;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import javax.servlet.ServletContext;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockServletContext;
@@ -47,6 +50,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.heyden.teamrelationmanager.ApplicationConstants;
 import com.heyden.teamrelationmanager.config.WebAppConfig;
 import com.heyden.teamrelationmanager.entity.Employee;
+import com.heyden.teamrelationmanager.entity.Team;
 import com.heyden.teamrelationmanager.service.EmployeeService;
 import com.heyden.teamrelationmanager.service.TeamService;
 
@@ -62,6 +66,7 @@ import com.heyden.teamrelationmanager.service.TeamService;
 @WebAppConfiguration
 class EmployeeControllerTest {
 	
+	private static final int EMPLOYEE_ID = 3141;
 	@Autowired
 	private EmployeeService employeeService;
 	@Autowired
@@ -72,9 +77,6 @@ class EmployeeControllerTest {
 	private WebApplicationContext webContext;
 	private MockMvc mockMvc;
 
-	/**
-	 * @throws java.lang.Exception
-	 */
 	@BeforeEach
 	void setUpBeforeEach() throws Exception {
 		mockMvc = MockMvcBuilders.webAppContextSetup(webContext).build();
@@ -89,14 +91,32 @@ class EmployeeControllerTest {
 		assertThat(webContext.getBean("employeeController")).isNotNull();
 	}
 
-	/**
-	 * Test method for {@link com.heyden.teamrelationmanager.controller.EmployeeController#getEmployeeList(org.springframework.ui.Model)} get request.
-	 * @throws Exception if something going wrong
-	 */
+	@ParameterizedTest
+	@MethodSource("pathGetProvider")
+	void testUnhandledPostRequest(String path) throws Exception {
+		ModelAndView actual = mockMvc.perform(post(path))
+			.andReturn().getModelAndView();
+		
+		assertThat(actual).isNotNull();
+		assertThat(actual.getStatus()).isEqualByComparingTo(HttpStatus.BAD_REQUEST);
+		assertThat(actual.getViewName()).isEqualTo(ApplicationConstants.VIEW_ERROR_DETAIL);
+	}
+	
+	@ParameterizedTest
+	@MethodSource("pathPostProvider")
+	void testUnhandledGetRequest(String path) throws Exception {
+		ModelAndView actual = mockMvc.perform(get(path))
+			.andReturn().getModelAndView();
+		
+		assertThat(actual).isNotNull();
+		assertThat(actual.getStatus()).isEqualByComparingTo(HttpStatus.BAD_REQUEST);
+		assertThat(actual.getViewName()).isEqualTo(ApplicationConstants.VIEW_ERROR_DETAIL);
+	}
+	
 	@Test
 	void testGetEmployeeListGetRequest() throws Exception {
 		List<Employee> expectedEmployeeList = new ArrayList<>();	
-		Mockito.when(employeeService.getEmployees()).thenReturn(expectedEmployeeList);
+		when(employeeService.getEmployees()).thenReturn(expectedEmployeeList);
 
 		ModelAndView actual = mockMvc.perform(get(getPath(EmployeeController.PATH_LIST)))
 			.andDo(MockMvcResultHandlers.log())
@@ -109,78 +129,69 @@ class EmployeeControllerTest {
 		assertThat(actual.getModel().get(EmployeeController.KEY_EMPLOYEES)).isEqualTo(expectedEmployeeList);
 	}
 	
-	/**
-	 * Test method for {@link com.heyden.teamrelationmanager.controller.EmployeeController#getEmployeeList(org.springframework.ui.Model)} post request.
-	 * @throws Exception if something going wrong
-	 */
 	@Test
-	void testGetEmployeeListPostRequest() throws Exception {
-		ModelAndView actual = mockMvc.perform(post(getPath(EmployeeController.PATH_LIST)))
+	void testCreateEmployee() throws Exception {
+		List<Team> expectedTeams = new ArrayList<>();
+		when(teamService.getTeams()).thenReturn(expectedTeams);
+		Employee expectedEmployee = new Employee();
+		
+		ModelAndView actual = mockMvc.perform(get(getPath(EmployeeController.PATH_CREATE)))
+			.andDo(MockMvcResultHandlers.log())
 			.andReturn().getModelAndView();
 		
 		assertThat(actual).isNotNull();
-		assertThat(actual.getStatus()).isEqualByComparingTo(HttpStatus.BAD_REQUEST);
-		assertThat(actual.getViewName()).isEqualTo(ApplicationConstants.VIEW_ERROR_DETAIL);
+		assertThat(actual.getStatus()).isEqualByComparingTo(HttpStatus.OK);
+		assertThat(actual.getViewName()).isEqualTo(EmployeeController.VIEW_EMPLOYEE_DETAIL);
+		assertThat(actual.getModel()).isNotNull();
+		assertThat(actual.getModel().get(EmployeeController.KEY_TEAMS)).isEqualTo(expectedTeams);
+		assertThat(actual.getModel().get(EmployeeController.KEY_EMPLOYEE)).isEqualToComparingFieldByField(expectedEmployee);
 	}
 
-	/**
-	 * Test method for {@link com.heyden.teamrelationmanager.controller.EmployeeController#getSearchResult(java.lang.String, org.springframework.ui.Model)}.
-	 * @throws Exception something going wrong
-	 */
 	@Test
-	void testGetSearchResultGetRequest() throws Exception {
-		ModelAndView actual = mockMvc.perform(post(getPath(EmployeeController.PATH_SEARCH)))
+	void testGetDetailEmployee() throws Exception {
+		List<Team> expectedTeams = new ArrayList<>();
+		when(teamService.getTeams()).thenReturn(expectedTeams);
+		Employee expectedEmployee = new Employee();
+		when(employeeService.getEmployee(EMPLOYEE_ID)).thenReturn(expectedEmployee);
+		
+		ModelAndView actual = mockMvc
+			.perform(
+				get(getPath(EmployeeController.PATH_CREATE))
+				.param(EmployeeController.PARAM_ID, Integer.toString(EMPLOYEE_ID)))
+			.andDo(MockMvcResultHandlers.log())
 			.andReturn().getModelAndView();
 		
 		assertThat(actual).isNotNull();
-		assertThat(actual.getStatus()).isEqualByComparingTo(HttpStatus.BAD_REQUEST);
-		assertThat(actual.getViewName()).isEqualTo(ApplicationConstants.VIEW_ERROR_DETAIL);
-	}
-	
-	@Test
-	@Paramet
-	
-	void testUnhandledPostRequest() throws Exception {
-		
+		assertThat(actual.getStatus()).isEqualByComparingTo(HttpStatus.OK);
+		assertThat(actual.getViewName()).isEqualTo(EmployeeController.VIEW_EMPLOYEE_DETAIL);
+		assertThat(actual.getModel()).isNotNull();
+		assertThat(actual.getModel().get(EmployeeController.KEY_TEAMS)).isEqualTo(expectedTeams);
+		assertThat(actual.getModel().get(EmployeeController.KEY_EMPLOYEE)).isEqualTo(expectedEmployee);
 	}
 
-	/**
-	 * Test method for {@link com.heyden.teamrelationmanager.controller.EmployeeController#createEmployee(org.springframework.ui.Model)}.
-	 */
-	@Test
-	void testCreateEmployee() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link com.heyden.teamrelationmanager.controller.EmployeeController#getDetailEmployee(int, org.springframework.ui.Model)}.
-	 */
-	@Test
-	void testGetDetailEmployee() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link com.heyden.teamrelationmanager.controller.EmployeeController#saveEmployee(com.heyden.teamrelationmanager.entity.Employee, org.springframework.validation.BindingResult, org.springframework.ui.Model)}.
-	 */
 	@Test
 	void testSaveEmployee() {
 		fail("Not yet implemented");
 	}
 
-	/**
-	 * Test method for {@link com.heyden.teamrelationmanager.controller.EmployeeController#deleteEmployee(int, org.springframework.ui.Model)}.
-	 */
 	@Test
 	void testDeleteEmployee() {
 		fail("Not yet implemented");
 	}
+
+	static Stream<String> pathGetProvider(){
+		return Stream.of(getPath(EmployeeController.PATH_LIST),
+			getPath(EmployeeController.PATH_CREATE),
+			getPath(EmployeeController.PATH_DELETE),
+			getPath(EmployeeController.PATH_DETAIL));
+	}
 	
-	/**
-	 * @param pathGoal
-	 * @return the complete controller request path
-	 */
-	private String getPath(String pathGoal) {
+	static Stream<String> pathPostProvider(){
+		return Stream.of(getPath(EmployeeController.PATH_SEARCH),
+			getPath(EmployeeController.PATH_SAVE));
+	}
+	
+	static String getPath(String pathGoal) {
 		return String.format("/%s/%s", EmployeeController.PATH_EMPLOYEE, pathGoal);
 	}
 
