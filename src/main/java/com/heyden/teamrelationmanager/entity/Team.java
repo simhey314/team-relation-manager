@@ -29,7 +29,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name="team")
@@ -46,7 +46,7 @@ public class Team {
 	@NotBlank
 	private String name;
 	
-	@JsonIgnore
+	@JsonBackReference
 	@OneToMany(fetch=FetchType.EAGER,
 			   mappedBy="team",
 			   cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
