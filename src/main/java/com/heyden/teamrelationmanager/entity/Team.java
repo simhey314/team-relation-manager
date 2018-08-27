@@ -29,8 +29,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+@JsonIdentityInfo(
+		generator= ObjectIdGenerators.PropertyGenerator.class,
+		property="id"
+		)
 @Entity
 @Table(name="team")
 public class Team {
@@ -46,7 +51,6 @@ public class Team {
 	@NotBlank
 	private String name;
 	
-	@JsonBackReference
 	@OneToMany(fetch=FetchType.EAGER,
 			   mappedBy="team",
 			   cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})

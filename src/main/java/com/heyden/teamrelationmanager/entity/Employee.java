@@ -27,9 +27,14 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.heyden.teamrelationmanager.validation.annotation.EmailAddress;
 
+@JsonIdentityInfo(
+		generator= ObjectIdGenerators.None.class,
+		property="id"
+		)
 @Entity
 @Table(name="employee")
 public class Employee {
@@ -53,7 +58,6 @@ public class Employee {
 	@Column
 	private String email;
 
-	@JsonManagedReference
 	@ManyToOne(fetch=FetchType.EAGER,
 			   cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
 	@JoinColumn(name="team_id")
