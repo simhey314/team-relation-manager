@@ -1,11 +1,11 @@
 /**
  * Copyright 2018 Simon Heyden
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.heyden.teamrelationmanager.ApplicationConstants;
 import com.heyden.teamrelationmanager.entity.Employee;
 import com.heyden.teamrelationmanager.service.EmployeeService;
 import com.heyden.teamrelationmanager.service.TeamService;
@@ -52,7 +53,11 @@ public class EmployeeController {
 	static final String PARAM_SEARCH_VALUE = KEY_SEARCH_VALUE;
 	static final String VIEW_EMPLOYEE_LIST = "employee/list";
 	static final String VIEW_EMPLOYEE_DETAIL = "employee/detail";
-	static final String REDIRECT_EMPLOYEE_LIST = "redirect:/" + VIEW_EMPLOYEE_LIST;
+	static final String REDIRECT_EMPLOYEE_LIST = ApplicationConstants.VIEW_REDIRECT + VIEW_EMPLOYEE_LIST;
+	public static final String PARAM_LASTNAME = "lastName";
+	public static final String PARAM_FIRSTNAME = "firstName";
+	public static final String PARAM_EMAIL = "email";
+	public static final String PARAM_TEAM_ID = "team.id";
 
 	@Autowired
 	private EmployeeService employeeService;
@@ -94,7 +99,7 @@ public class EmployeeController {
 	public String getDetailEmployee(@RequestParam(PARAM_ID) final int employeeId, final Model model) {
 		Employee employee = employeeService.getEmployee(employeeId);
 		if (employee == null) {
-			return REDIRECT_EMPLOYEE_LIST;
+			return ApplicationConstants.VIEW_ERROR_DETAIL;
 		}
 		model.addAttribute(KEY_EMPLOYEE, employee);
 		model.addAttribute(KEY_TEAMS, teamService.getTeams());
