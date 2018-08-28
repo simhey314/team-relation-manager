@@ -1,11 +1,11 @@
 /**
  * Copyright 2018 Simon Heyden
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
@@ -27,17 +27,37 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.heyden.teamrelationmanager.ApplicationConstants;
 import com.heyden.teamrelationmanager.entity.Employee;
 import com.heyden.teamrelationmanager.service.EmployeeService;
 import com.heyden.teamrelationmanager.service.TeamService;
 
 @Controller
-@RequestMapping("/employee")
+@RequestMapping(EmployeeController.PATH_EMPLOYEE)
 public class EmployeeController {
 
-	private static final String VIEW_EMPLOYEE_LIST = "employee/list";
-	private static final String VIEW_EMPLOYEE_DETAIL = "employee/detail";
-	private static final String REDIRECT_EMPLOYEE_LIST = "redirect:/" + VIEW_EMPLOYEE_LIST;
+	static final String MESSAGE_NO_SEARCH_RESULT = "Bei der Suche wurden keine Mitarbeiter/in gefunden!";
+	static final String KEY_MESSAGE = "message";
+	static final String PARAM_ID = "id";
+	static final String PATH_EMPLOYEE = "/employee";
+	public static final String PATH_LIST = "/list";
+	public static final String PATH_SEARCH = "/search";
+	public static final String PATH_CREATE = "/create";
+	public static final String PATH_DETAIL = "/detail";
+	public static final String PATH_SAVE = "/save";
+	public static final String PATH_DELETE = "/delete";
+	static final String KEY_SEARCH_VALUE = "searchValue";
+	static final String KEY_TEAMS = "teams";
+	static final String KEY_EMPLOYEES = "employees";
+	static final String KEY_EMPLOYEE = "employee";
+	static final String PARAM_SEARCH_VALUE = KEY_SEARCH_VALUE;
+	static final String VIEW_EMPLOYEE_LIST = "employee/list";
+	static final String VIEW_EMPLOYEE_DETAIL = "employee/detail";
+	static final String REDIRECT_EMPLOYEE_LIST = ApplicationConstants.VIEW_REDIRECT + VIEW_EMPLOYEE_LIST;
+	public static final String PARAM_LASTNAME = "lastName";
+	public static final String PARAM_FIRSTNAME = "firstName";
+	public static final String PARAM_EMAIL = "email";
+	public static final String PARAM_TEAM_ID = "team.id";
 
 	@Autowired
 	private EmployeeService employeeService;
@@ -45,57 +65,57 @@ public class EmployeeController {
 	@Autowired
 	private TeamService teamService;
 
-	@GetMapping("/list")
+	@GetMapping(PATH_LIST)
 	public String getEmployeeList(final Model model) {
 
 		List<Employee> employeeList = employeeService.getEmployees(Employee.COLUMN_LAST_NAME);
-		model.addAttribute("employees", employeeList);
+		model.addAttribute(KEY_EMPLOYEES, employeeList);
 
 		return VIEW_EMPLOYEE_LIST;
 	}
 
-	@PostMapping("/search")
-	public String getSearchResult(@RequestParam("searchValue") final String searchValue, final Model model) {
+	@PostMapping(PATH_SEARCH)
+	public String getSearchResult(@RequestParam(PARAM_SEARCH_VALUE) final String searchValue, final Model model) {
 
 		List<Employee> employeeList = employeeService.searchEmployee(searchValue);
-		model.addAttribute("employees", employeeList);
+		model.addAttribute(KEY_EMPLOYEES, employeeList);
 		// TODO: externalize the message
-		model.addAttribute("message", "Bei der Suche wurden keine Mitarbeiter/in gefunden!");
-		model.addAttribute("searchValue", searchValue);
+		model.addAttribute(KEY_MESSAGE, MESSAGE_NO_SEARCH_RESULT);
+		model.addAttribute(KEY_SEARCH_VALUE, searchValue);
 
 		return VIEW_EMPLOYEE_LIST;
 	}
 
-	@GetMapping("/create")
+	@GetMapping(PATH_CREATE)
 	public String createEmployee(final Model model) {
 		Employee newEmloyee = new Employee();
-		model.addAttribute("employee", newEmloyee);
-		model.addAttribute("teams", teamService.getTeams());
+		model.addAttribute(KEY_EMPLOYEE, newEmloyee);
+		model.addAttribute(KEY_TEAMS, teamService.getTeams());
 
 		return VIEW_EMPLOYEE_DETAIL;
 	}
 
-	@GetMapping("/detail")
-	public String getDetailEmployee(@RequestParam("id") final int employeeId, final Model model) {
+	@GetMapping(PATH_DETAIL)
+	public String getDetailEmployee(@RequestParam(PARAM_ID) final int employeeId, final Model model) {
 		Employee employee = employeeService.getEmployee(employeeId);
 		if (employee == null) {
-			return REDIRECT_EMPLOYEE_LIST;
+			return ApplicationConstants.VIEW_ERROR_DETAIL;
 		}
-		model.addAttribute("employee", employee);
-		model.addAttribute("teams", teamService.getTeams());
+		model.addAttribute(KEY_EMPLOYEE, employee);
+		model.addAttribute(KEY_TEAMS, teamService.getTeams());
 
 		return VIEW_EMPLOYEE_DETAIL;
 	}
 
-	@PostMapping("/save")
-	public String saveEmployee(@Valid @ModelAttribute("employee") final Employee employee,
+	@PostMapping(PATH_SAVE)
+	public String saveEmployee(@Valid @ModelAttribute(KEY_EMPLOYEE) final Employee employee,
 		final BindingResult bindingResult, final Model model) {
 
 		String view = REDIRECT_EMPLOYEE_LIST;
 		if (bindingResult.hasErrors()) {
 			view = VIEW_EMPLOYEE_DETAIL;
-			model.addAttribute("employee", employee);
-			model.addAttribute("teams", teamService.getTeams());
+			model.addAttribute(KEY_EMPLOYEE, employee);
+			model.addAttribute(KEY_TEAMS, teamService.getTeams());
 		} else {
 			employeeService.saveEmployee(employee);
 		}
@@ -103,8 +123,8 @@ public class EmployeeController {
 		return view;
 	}
 
-	@GetMapping("/delete")
-	public String deleteEmployee(@RequestParam("id") final int id, final Model model) {
+	@GetMapping(PATH_DELETE)
+	public String deleteEmployee(@RequestParam(PARAM_ID) final int id, final Model model) {
 		employeeService.deleteEmployee(id);
 		return REDIRECT_EMPLOYEE_LIST;
 	}

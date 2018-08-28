@@ -89,6 +89,8 @@ _Webapp to managing the information of all team members_
 ### Eclipse/ IDE
 Projekt auf einem Java Applicationsserver (Bsp. Tomcat) Server ausführen (Run as: Run on Server)
 
+* Web-Frontend: http://localhost:8080/team-relation-manager
+
 ### WAR File
 Mit Maven das Projekt bauen (Maven install) und das WAR file dann auf dem Java Applikations Server (Bsp. Tomcat) ablegen
 

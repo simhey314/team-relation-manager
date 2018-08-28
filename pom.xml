@@ -29,11 +29,16 @@
 		<servlet.api.version>3.1.0</servlet.api.version>
 		<servlet.jsp-api.version>2.3.1</servlet.jsp-api.version>
 		<servlet.jstl.version>1.2</servlet.jstl.version>
-		<junit.version>4.12</junit.version>
-		<mockito.core.version>2.21.0</mockito.core.version>
 		<log4j.version>2.11.1</log4j.version>
 		<aspectj.version>1.9.1</aspectj.version>
 		<apache.common.lang.version>3.8</apache.common.lang.version>
+
+		<!-- test dependencies -->
+		<junit.jupiter.version>5.2.0</junit.jupiter.version>
+		<junit.platform.version>1.2.0</junit.platform.version>
+		<mockito.core.version>2.21.0</mockito.core.version>
+		<assertj.core.version>3.11.0</assertj.core.version>
+		<glassfish.el.version>3.0.1-b09</glassfish.el.version>
 
 	</properties>
 
@@ -120,12 +125,23 @@
 			<version>${apache.common.lang.version}</version>
 		</dependency>
 
-
 		<!-- Testing -->
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>${junit.jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-params</artifactId>
+			<version>${junit.jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${junit.jupiter.version}</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -142,6 +158,21 @@
 			<version>${spring.test.version}</version>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>${assertj.core.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.el</artifactId>
+			<version>${glassfish.el.version}</version>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -153,7 +184,17 @@
 					<artifactId>maven-war-plugin</artifactId>
 					<version>3.2.2</version>
 				</plugin>
-
+				<plugin>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.21.0</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.junit.platform</groupId>
+							<artifactId>junit-platform-surefire-provider</artifactId>
+							<version>${junit.platform.version}</version>
+						</dependency>
+					</dependencies>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
