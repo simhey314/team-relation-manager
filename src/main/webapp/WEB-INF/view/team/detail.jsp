@@ -39,7 +39,7 @@ limitations under the License. --%>
 		<h1 class="bg-info text-center text-white mb-0 pb-4">Team Pflege</h1>
 		<h2 class="bg-info text-center text-white pb-4 mb-4">Team
 			Detailansicht</h2>
-		<form:form action="save" modelAttribute="team" method="POST" >
+		<form:form action="save" modelAttribute="team" method="POST">
 			<c:url var="deleteLink" value="delete">
 				<c:param name="id" value="${team.id}" />
 			</c:url>
@@ -55,21 +55,21 @@ limitations under the License. --%>
 				<div class="col-6 form-group">
 					<label>Mitglieder</label>
 					<ul class="list-group team-detail" data-css="team-member-list">
-					<c:if test="${team.id > 0}">
-						<c:choose>
-							<c:when test="${empty team.employees}">
-								<li class="form-control mb-2">keine vorhanden</li>
-							</c:when>
-							<c:otherwise>
-								
+						<c:if test="${team.id > 0}">
+							<c:choose>
+								<c:when test="${empty team.employees}">
+									<li class="form-control mb-2">keine vorhanden</li>
+								</c:when>
+								<c:otherwise>
+
 									<c:forEach var="employeeEntity" items="${team.employees}">
 										<li class="form-control mb-2">${employeeEntity.firstName}
 											${employeeEntity.lastName}</li>
 									</c:forEach>
-								
-							</c:otherwise>
-						</c:choose>
-					</c:if>
+
+								</c:otherwise>
+							</c:choose>
+						</c:if>
 					</ul>
 				</div>
 			</div>

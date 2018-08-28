@@ -84,8 +84,8 @@ limitations under the License. --%>
 		</div>
 		<div class="row pb-2">
 			<div class="col">
-				<a href="${pageContext.request.contextPath}/employee/list" class="btn btn-info">zur Mitarbeiter/in
-					Übersicht</a>
+				<a href="${pageContext.request.contextPath}/employee/list"
+					class="btn btn-info">zur Mitarbeiter/in Übersicht</a>
 			</div>
 		</div>
 	</div>
