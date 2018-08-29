@@ -39,6 +39,7 @@
 		<mockito.core.version>2.21.0</mockito.core.version>
 		<assertj.core.version>3.11.0</assertj.core.version>
 		<glassfish.el.version>3.0.1-b09</glassfish.el.version>
+		<h2database.h2.version>1.4.197</h2database.h2.version>
 
 	</properties>
 
@@ -170,6 +171,13 @@
 			<groupId>org.glassfish</groupId>
 			<artifactId>javax.el</artifactId>
 			<version>${glassfish.el.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>${h2database.h2.version}</version>
 			<scope>test</scope>
 		</dependency>
 

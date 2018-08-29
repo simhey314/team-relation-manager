@@ -89,7 +89,6 @@ public class HibernateConfig {
 	}
 
 	@Bean
-	@Autowired
 	public HibernateTransactionManager transactionManager(final SessionFactory sessionFactory) {
 		HibernateTransactionManager transactionManager = new HibernateTransactionManager();
 		transactionManager.setSessionFactory(sessionFactory);
