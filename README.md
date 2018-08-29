@@ -1,5 +1,5 @@
 # Team Relation Manager
-_Webapp to managing the information of all team members_
+_Webapp to managing the information of all team members (Simple CRUD WebApp)_
 
 ## Aufgabenstellung
 1. Usecase: Es soll eine Softwarelösung erstellt werden, die Kontakte eines Teams verwaltet.
