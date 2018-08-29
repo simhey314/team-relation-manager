@@ -113,5 +113,5 @@ $RECYCLE.BIN/
 
 # End of https://www.gitignore.io/api/maven,eclipse,windows,java-web
 /.mvn
-mysql*.properties
+/src/main/resources/mysql*.properties
 logs
