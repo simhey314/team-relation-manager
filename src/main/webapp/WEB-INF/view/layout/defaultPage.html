@@ -1,0 +1,42 @@
+<!--/* Copyright 2018 Simon Heyden
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */-->
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="layout/head :: head">
+		<title>LAYOUT TEMPLATE DEFAULT PAGE</title>
+	</head>
+	<body>
+		<div th:replace="layout/header :: header">
+			<em>Header block</em>
+		</div>
+		<main class="container">
+			<div layout:fragment="content">
+				<!-- ============================================================================ -->
+				<!-- This content is only used for static prototyping purposes (natural templates)-->
+				<!-- and is therefore entirely optional, as this markup fragment will be included -->
+				<!-- from "layout/header.html" at runtime.                                     -->
+				<!-- ============================================================================ -->
+				<h2>Layout template default page</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+					Praesent scelerisque neque neque, ac elementum quam dignissim
+					interdum. Phasellus et placerat elit. Lorem ipsum dolor sit amet,
+					consectetur adipiscing elit. Praesent scelerisque neque neque, ac
+					elementum quam dignissim interdum. Phasellus et placerat elit.</p>
+			</div>
+		</main>
+		<div th:replace="layout/footer :: footer">
+			<em>Footer block</em>
+		</div>
+	</body>
+</html>

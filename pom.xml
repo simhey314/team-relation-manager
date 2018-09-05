@@ -12,7 +12,6 @@
 	<name>team-realtion-manager</name>
 	<description>Team Relation Manager Webapp</description>
 
-
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -32,6 +31,8 @@
 		<log4j.version>2.11.1</log4j.version>
 		<aspectj.version>1.9.1</aspectj.version>
 		<apache.common.lang.version>3.8</apache.common.lang.version>
+		<thymleaf.thymeleaf-spring5.version>3.0.9.RELEASE</thymleaf.thymeleaf-spring5.version>
+		<thymleaf.layout-dialect.version>2.3.0</thymleaf.layout-dialect.version>
 
 		<!-- test dependencies -->
 		<junit.jupiter.version>5.2.0</junit.jupiter.version>
@@ -124,6 +125,20 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>${apache.common.lang.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.thymeleaf</groupId>
+			<artifactId>thymeleaf-spring5</artifactId>
+			<version>${thymleaf.thymeleaf-spring5.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>nz.net.ultraq.thymeleaf</groupId>
+			<artifactId>thymeleaf-layout-dialect</artifactId>
+			<version>${thymleaf.layout-dialect.version}</version>
+		</dependency>
+
+
 
 		<!-- Testing -->
 		<dependency>

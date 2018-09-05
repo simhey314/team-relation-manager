@@ -1,0 +1,33 @@
+<!--/* Copyright 2018 Simon Heyden
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */-->
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>HEADER LAYOUT FRAGMENT</title>
+	</head>
+	<body>
+		<!-- ============================================================================ -->
+		<!-- This content is only used for static prototyping purposes (natural templates)-->
+		<!-- and is therefore entirely optional                                           -->
+		<!-- ============================================================================ -->
+		<h2>
+			Layout template <em>header</em> fragment
+		</h2>
+		<!-- Start template fragment -->
+		<header class="container" layout:fragment="header">
+			<h1 class="bg-info text-center text-white mb-0 pb-4" th:text="$LAYOUT_TITLE">WEBSITE TITLE</h1>
+			<h2 class="bg-info text-center text-white pb-4 mb-4" th:text="$CONTENT_TITLE">PAGE TITLE</h2>
+		</header>
+		<!-- End template fragment -->
+	</body>
+</html>
